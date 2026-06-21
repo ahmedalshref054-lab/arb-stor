@@ -3,1065 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>متجر العرب — تيشرت منتخب مصر الملكي</title>
+<title>متجر العرب — طقم منتخب مصر الفراعوني الكامل</title>
 <meta name="description" content="القميص الرسمي لمنتخب مصر الوطني. خامة أصلية طاردة للعرق، تطريز ديجيتال عالي الدقة، قصة رياضية مريحة. الدفع عند الاستلام في جميع أنحاء مصر.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-<style>
-  /* =========================================================
-     0. المتغيرات والألوان الأساسية (TOKENS)
-  ===============
-  */
-  * {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-  :root{
-    --red:        #ce1126;
-    --red-deep:   #9c0c1c;
-    --gold:       #c5a059;
-    --gold-light: #e3c98a;
-    --dark:       #111111;
-    --black:      #0a0a0a;
-    --white:      #ffffff;
-    --off-white:  #f5f3ef;
-    --line:       rgba(245,243,239,0.12);
-    --line-soft:  rgba(10,10,10,0.10);
-
-    --display: 'Oswald', 'Cairo', sans-serif;
-    --heading: 'Cairo', sans-serif;
-    --body:    'Cairo', sans-serif;
-
-    --container: 1180px;
-    --radius: 4px;
-    --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  *,*::before,*::after{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
-  }
-
-  body{
-    margin:0;
-    background:var(--black);
-    color:var(--off-white);
-    font-family:var(--body);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  img{ max-width:100%; display:block; }
-  a{ color:inherit; text-decoration:none; }
-  button{ font-family:inherit; cursor:pointer; }
-  input, select, textarea{ font-family:inherit; }
-
-  ::selection{ background:var(--red); color:var(--white); }
-
-  :focus-visible{
-    outline: 2px solid var(--gold-light);
-    outline-offset: 3px;
-  }
-
-  .wrap{
-    max-width:var(--container);
-    margin:0 auto;
-    padding:0 24px;
-  }
-
-  .eyebrow{
-    font-family:var(--heading);
-    font-size:13px;
-    letter-spacing:0.05em;
-    color:var(--gold);
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:28px;
-    height:1px;
-    background:var(--gold);
-  }
-
-  .tricolor{
-    height:4px;
-    width:100%;
-    background:linear-gradient(90deg,
-      var(--red) 0%, var(--red) 33.3%,
-      var(--off-white) 33.3%, var(--off-white) 66.6%,
-      var(--black) 66.6%, var(--black) 100%);
-    border-radius:2px;
-  }
-
-  .section-head{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    margin-bottom:48px;
-  }
-  .section-head h2{
-    font-family:var(--display);
-    font-size:clamp(30px, 5vw, 50px);
-    margin:0;
-    line-height:1.2;
-    color:var(--white);
-  }
-  .section-head p{
-    max-width:560px;
-    color:rgba(245,243,239,0.65);
-    font-size:16px;
-    margin:0;
-  }
-
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    font-family:var(--heading);
-    font-weight:600;
-    font-size:14px;
-    padding:14px 30px;
-    border-radius:var(--radius);
-    border:1px solid transparent;
-    transition:transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
-    white-space:nowrap;
-  }
-  .btn-primary{
-    background:var(--red);
-    color:var(--white);
-  }
-  .btn-primary:hover{
-    background:var(--red-deep);
-    transform:translateY(-2px);
-  }
-  .btn-ghost{
-    background:transparent;
-    color:var(--off-white);
-    border-color:var(--line);
-  }
-  .btn-ghost:hover{
-    border-color:var(--gold);
-    color:var(--gold-light);
-  }
-  .btn-gold{
-    background:var(--gold);
-    color:var(--black);
-  }
-  .btn-gold:hover{
-    background:var(--gold-light);
-    transform:translateY(-2px);
-  }
-  .btn:active{ transform:translateY(0); }
-
-  /* =========================================================
-     1. شريط التنقّل (NAVBAR)
-  ========================================================= */
-  .nav{
-    position:fixed;
-    top:0; left:0; right:0;
-    z-index:1000;
-    background:rgba(10,10,10,0.72);
-    backdrop-filter:blur(14px) saturate(140%);
-    -webkit-backdrop-filter:blur(14px) saturate(140%);
-    border-bottom:1px solid var(--line);
-    transition:background 0.3s var(--ease);
-  }
-  .nav-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:76px;
-  }
-  .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--display);
-    font-size:22px;
-    font-weight:700;
-    color:var(--white);
-  }
-  .logo .flag{ font-size:22px; line-height:1; }
-  .logo .accent{ color:var(--red); }
-
-  .nav-links{
-    display:flex;
-    align-items:center;
-    gap:38px;
-    list-style:none;
-    margin:0; padding:0;
-  }
-  .nav-links a{
-    font-family:var(--heading);
-    font-size:14px;
-    color:rgba(245,243,239,0.78);
-    position:relative;
-    padding:6px 0;
-    transition:color 0.2s var(--ease);
-  }
-  .nav-links a::after{
-    content:"";
-    position:absolute;
-    right:0; bottom:0;
-    width:0; height:2px;
-    background:var(--gold);
-    transition:width 0.25s var(--ease);
-  }
-  .nav-links a:hover{ color:var(--white); }
-  .nav-links a:hover::after{ width:100%; }
-
-  .nav-cta{
-    display:flex;
-    align-items:center;
-    gap:18px;
-  }
-  .nav-cta .btn{ padding:10px 20px; font-size:13px; }
-
-  .burger{
-    display:none;
-    flex-direction:column;
-    gap:5px;
-    background:none;
-    border:0;
-    padding:8px;
-  }
-  .burger span{
-    width:24px; height:2px;
-    background:var(--white);
-    transition:transform 0.3s var(--ease), opacity 0.3s var(--ease);
-  }
-  .burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-  .burger.open span:nth-child(2){ opacity:0; }
-  .burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
-
-  /* =========================================================
-     2. القسم الرئيسي (HERO)
-  ========================================================= */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    padding-top:76px;
-    overflow:hidden;
-    background:
-      radial-gradient(ellipse 70% 60% at 20% 20%, rgba(206,17,38,0.25), transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(197,160,89,0.14), transparent 60%),
-      var(--black);
-  }
-  .hero-ghost-number{
-    position:absolute;
-    left:-2vw;
-    top:50%;
-    transform:translateY(-50%);
-    font-family:var(--display);
-    font-size:min(62vw, 720px);
-    line-height:1;
-    color:transparent;
-    -webkit-text-stroke:1px rgba(245,243,239,0.06);
-    letter-spacing:-0.02em;
-    pointer-events:none;
-    user-select:none;
-    z-index:0;
-  }
-  .hero-inner{
-    position:relative;
-    z-index:2;
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    align-items:center;
-    gap:48px;
-    width:100%;
-    padding:64px 0 80px;
-  }
-  .hero-copy .eyebrow{ margin-bottom:22px; }
-  .hero-copy h1{
-    font-family:var(--display);
-    font-size:clamp(38px, 6vw, 72px);
-    line-height:1.15;
-    margin:0 0 22px;
-    color:var(--white);
-  }
-  .hero-copy h1 .line-red{ color:var(--red); }
-  .hero-copy h1 .line-gold{ color:var(--gold); }
-  .hero-copy p.lede{
-    font-size:17px;
-    color:rgba(245,243,239,0.7);
-    max-width:480px;
-    margin:0 0 36px;
-  }
-  .hero-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:16px;
-    margin-bottom:44px;
-  }
-  .hero-stats{
-    display:flex;
-    gap:36px;
-    flex-wrap:wrap;
-  }
-  .hero-stats .stat{
-    border-right:2px solid var(--gold);
-    padding-right:14px;
-  }
-  .hero-stats .stat strong{
-    display:block;
-    font-family:var(--display);
-    font-size:28px;
-    color:var(--white);
-    line-height:1;
-  }
-  .hero-stats .stat span{
-    font-size:13px;
-    color:rgba(245,243,239,0.55);
-  }
-
-  .hero-visual{
-    position:relative;
-  }
-  .hero-jersey-frame{
-    position:relative;
-    aspect-ratio:4/5;
-    border-radius:10px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:linear-gradient(155deg, #1a1a1a, #0a0a0a);
-    box-shadow:0 40px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(197,160,89,0.08);
-  }
-  .hero-jersey-frame img{
-    width:100%; height:100%;
-    object-fit:cover;
-  }
-  .hero-badge{
-    position:absolute;
-    bottom:-1px; right:-1px;
-    background:var(--red);
-    color:var(--white);
-    font-family:var(--heading);
-    font-size:13px;
-    padding:10px 20px;
-    border-top-left-radius:8px;
-  }
-  .hero-badge-gold{
-    position:absolute;
-    top:18px; left:18px;
-    background:rgba(10,10,10,0.7);
-    border:1px solid var(--gold);
-    color:var(--gold-light);
-    font-family:var(--heading);
-    font-size:12px;
-    padding:6px 14px;
-    border-radius:30px;
-    backdrop-filter:blur(6px);
-  }
-
-  .scroll-cue{
-    position:absolute;
-    bottom:28px;
-    right:24px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--heading);
-    font-size:12px;
-    color:rgba(245,243,239,0.45);
-    z-index:2;
-  }
-  .scroll-cue .dash{
-    width:1px; height:30px;
-    background:rgba(245,243,239,0.3);
-    animation:scrollPulse 1.8s ease-in-out infinite;
-  }
-  @keyframes scrollPulse{
-    0%,100%{ transform:scaleY(1); opacity:0.4; }
-    50%{ transform:scaleY(1.4); opacity:1; }
-  }
-
-  /* =========================================================
-     3. معرض الصور (SLIDER) - تم ضبط الحجم وتثبيت الخلايا من الانكماش
-  ========================================================= */
-  .slider-section{
-    padding:110px 0;
-    background:var(--black);
-    position:relative;
-  }
-  .slider-shell{
-    position:relative;
-    border-radius:10px;
-    overflow:hidden;
-    background:#0d0d0d;
-    border:1px solid var(--line);
-  }
-  .slider-track-viewport{
-    position:relative;
-    aspect-ratio: 16/9;    
-    max-height: 480px;     
-    overflow:hidden;
-    width: 100%;
-  }
-  .slider-track{
-    display:flex;
-    height:100%;
-    width: 100%;
-    transition:transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    touch-action:pan-y;
-  }
-  .slide {
-    width: 100%;        
-    flex: 0 0 100%;     /* تم التعديل لمنع انكماش الصور نهائياً وجعل كل واحدة مربع منفرد */
-    max-width: 100%;
-    height: 100%;
-    position: relative;
-  }
-.slider-track img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* ده هيخلي الصورة بالكامل تظهر جوة الإطار من غير ما تتقص */
-}
-  .slide-caption{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding:28px 32px;
-    background:linear-gradient(180deg, transparent, rgba(0,0,0,0.9));
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:20px;
-  }
-  .slide-caption h4{
-    font-family: var(--body);
-    font-weight: 700;
-    font-size:19px;
-    color:var(--white);
-    margin:0;
-  }
-  .slide-caption span{
-    font-family: var(--body);
-    font-size:13.5px;
-    color:var(--gold-light);
-  }
-
-  .slider-arrow{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:52px; height:52px;
-    border-radius:50%;
-    background:rgba(10,10,10,0.55);
-    border:1px solid rgba(245,243,239,0.25);
-    backdrop-filter:blur(8px);
-    color:var(--white);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    z-index:5;
-    transition:background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .slider-arrow:hover{
-    background:var(--red);
-    border-color:var(--red);
-  }
-  .slider-arrow.prev{ right:18px; }
-  .slider-arrow.next{ left:18px; }
-
-  .slider-footer{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 28px;
-    border-top:1px solid var(--line);
-    flex-wrap:wrap;
-    gap:14px;
-  }
-  .slider-counter{
-    font-family:var(--heading);
-    font-size:13px;
-    color:rgba(245,243,239,0.7);
-  }
-  .slider-counter strong{ color:var(--gold-light); }
-
-  .slider-dots{
-    display:flex;
-    gap:8px;
-  }
-  .slider-dots button{
-    width:8px; height:8px;
-    border-radius:50%;
-    background:rgba(245,243,239,0.25);
-    border:0;
-    padding:0;
-    transition:background 0.25s var(--ease), width 0.25s var(--ease);
-  }
-  .slider-dots button.active{
-    background:var(--gold);
-    width:22px;
-    border-radius:6px;
-  }
-
-  /* =========================================================
-     4. مميزات المنتج (VALUE PROPS)
-  ========================================================= */
-  .features{
-    padding:110px 0;
-    background:linear-gradient(180deg, var(--black), #0e0e0e);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-  }
-  .feature-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-  }
-  .feature-card{
-    background:#0d0d0d;
-    padding:40px 30px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-    transition:background 0.3s var(--ease);
-  }
-  .feature-card:hover{ background:#131313; }
-  .feature-icon{
-    width:52px; height:52px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    background:rgba(197,160,89,0.1);
-    border:1px solid rgba(197,160,89,0.3);
-    color:var(--gold-light);
-  }
-  .feature-card h3{
-    font-family:var(--heading);
-    font-size:18px;
-    font-weight:700;
-    color:var(--white);
-    margin:0;
-  }
-  .feature-card p{
-    font-size:14.5px;
-    color:rgba(245,243,239,0.6);
-    margin:0;
-  }
-
-  /* =========================================================
-     5. الباقات والأسعار (PRICING)
-  ========================================================= */
-  .pricing{
-    padding:110px 0;
-    background:var(--black);
-  }
-  .pricing-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:28px;
-    align-items:stretch;
-  }
-  .price-card{
-    position:relative;
-    border-radius:12px;
-    padding:40px 36px;
-    background:#0d0d0d;
-    border:1px solid var(--line);
-    display:flex;
-    flex-direction:column;
-    transition:transform 0.3s var(--ease), border-color 0.3s var(--ease);
-  }
-  .price-card:hover{ transform:translateY(-4px); }
-  .price-card.featured{
-    background:linear-gradient(165deg, #1c1410, #0d0d0d 60%);
-    border-color:var(--gold);
-    box-shadow:0 30px 60px -20px rgba(197,160,89,0.18);
-  }
-  .price-tag{
-    position:absolute;
-    top:-1px; left:24px;
-    background:var(--gold);
-    color:var(--black);
-    font-family:var(--heading);
-    font-size:12px;
-    font-weight:600;
-    padding:6px 14px;
-    border-radius:0 0 8px 8px;
-  }
-  .price-card h3{
-    font-family:var(--heading);
-    font-size:14px;
-    color:var(--gold-light);
-    margin:0 0 10px;
-  }
-  .price-card h2{
-    font-family:var(--display);
-    font-size:32px;
-    font-weight:700;
-    color:var(--white);
-    margin:0 0 18px;
-    line-height:1.2;
-  }
-  .price-row{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    margin-bottom:6px;
-  }
-  .price-row .amount{
-    font-family:var(--display);
-    font-size:46px;
-    font-weight:700;
-    color:var(--white);
-  }
-  .price-row .currency{
-    font-family:var(--heading);
-    font-size:16px;
-    color:rgba(245,243,239,0.6);
-  }
-  .price-strike{
-    font-size:14px;
-    color:rgba(245,243,239,0.4);
-    text-decoration:line-through;
-    margin-bottom:18px;
-  }
-  .price-shipping{
-    font-size:14px;
-    color:rgba(245,243,239,0.55);
-    margin-bottom:24px;
-  }
-  .price-shipping b{ color:var(--gold-light); font-weight:600; }
-
-  .price-list{
-    list-style:none;
-    margin:0 0 28px;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-  .price-list li{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    font-size:14.5px;
-    color:rgba(245,243,239,0.78);
-  }
-  .price-list li::before{
-    content:"✓";
-    color:var(--gold);
-    font-weight:700;
-    flex-shrink:0;
-  }
-
-  .size-field{
-    margin-bottom:24px;
-  }
-  .size-field label{
-    display:block;
-    font-family:var(--heading);
-    font-size:13px;
-    color:rgba(245,243,239,0.6);
-    margin-bottom:10px;
-  }
-  .select-wrap{
-    position:relative;
-  }
-  .select-wrap::after{
-    content:"▾";
-    position:absolute;
-    left:16px; top:50%;
-    transform:translateY(-50%);
-    color:var(--gold);
-    pointer-events:none;
-    font-size:14px;
-  }
-  select{
-    width:100%;
-    padding:14px 16px 14px 40px;
-    background:#161616;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    color:var(--white);
-    font-size:14px;
-    appearance:none;
-    -webkit-appearance:none;
-    transition:border-color 0.2s var(--ease);
-  }
-  select:hover, select:focus{ border-color:var(--gold); }
-
-  .price-card .btn{ margin-top:auto; width:100%; }
-
-  .save-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:rgba(206,17,38,0.15);
-    border:1px solid rgba(206,17,38,0.4);
-    color:#ff6b7a;
-    font-family:var(--heading);
-    font-size:13px;
-    padding:4px 12px;
-    border-radius:30px;
-    margin-bottom:18px;
-    width:fit-content;
-  }
-
-  /* =========================================================
-     6. نموذج تأكيد الطلب (CHECKOUT)
-  ========================================================= */
-  .checkout{
-    padding:110px 0 130px;
-    background:linear-gradient(180deg, #0e0e0e, var(--black) 30%);
-    border-top:1px solid var(--line);
-    position:relative;
-  }
-  .checkout-shell{
-    display:grid;
-    grid-template-columns:1.3fr 1fr;
-    gap:0;
-    border-radius:14px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:#0c0c0c;
-  }
-  .checkout-form{
-    padding:52px;
-  }
-  .checkout-form h3{
-    font-family:var(--display);
-    font-size:30px;
-    font-weight:700;
-    color:var(--white);
-    margin:0 0 8px;
-  }
-  .checkout-form > p{
-    color:rgba(245,243,239,0.55);
-    font-size:14.5px;
-    margin:0 0 36px;
-  }
-
-  .field-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-  }
-  .field{
-    margin-bottom:22px;
-    display:flex;
-    flex-direction:column;
-    gap:9px;
-  }
-  .field.full { grid-column:1 / -1; }
-  .field label{
-    font-family:var(--heading);
-    font-size:13px;
-    color:rgba(245,243,239,0.65);
-  }
-  .field label .req{ color:var(--red); margin-left:3px; }
-
-  input[type="text"],
-  input[type="tel"],
-  textarea{
-    width:100%;
-    padding:14px 16px;
-    background:#161616;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    color:var(--white);
-    font-size:14.5px;
-    transition:border-color 0.2s var(--ease), background 0.2s var(--ease);
-  }
-  input::placeholder, textarea::placeholder{
-    color:rgba(245,243,239,0.32);
-  }
-  input:hover, textarea:hover{ border-color:rgba(197,160,89,0.4); }
-  input:focus, textarea:focus, select:focus{
-    border-color:var(--gold);
-    background:#1a1a1a;
-  }
-  textarea{ resize:vertical; min-height:96px; }
-
-  .pkg-toggle{
-    display:flex;
-    gap:12px;
-    margin-bottom:8px;
-  }
-  .pkg-toggle input{ display:none; }
-  .pkg-toggle label{
-    flex:1;
-    cursor:pointer;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:16px 14px;
-    text-align:center;
-    font-family:var(--heading);
-    font-size:14px;
-    color:rgba(245,243,239,0.65);
-    transition:border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
-  }
-  .pkg-toggle label span{
-    display:block;
-    font-family:var(--body);
-    font-weight:600;
-    font-size:14px;
-    margin-top:4px;
-    color:var(--white);
-  }
-  .pkg-toggle input:checked + label{
-    border-color:var(--gold);
-    background:rgba(197,160,89,0.08);
-    color:var(--gold-light);
-  }
-
-  .form-submit{
-    width:100%;
-    margin-top:8px;
-    padding:16px 0;
-    font-size:16px;
-    font-weight:700;
-    background:var(--red);
-    color:var(--white);
-    border:none;
-    border-radius:var(--radius);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    font-family:var(--heading);
-    transition:background 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .form-submit:hover{ background:var(--red-deep); transform:translateY(-2px); }
-  .form-submit svg{ width:20px; height:20px; fill:currentColor; }
-
-  .form-note{
-    margin-top:16px;
-    font-size:13px;
-    color:rgba(245,243,239,0.4);
-    text-align:center;
-  }
-
-  /* الفاتورة الجانبية المعاينة */
-  .invoice{
-    background:linear-gradient(165deg, #1a1410, #0a0a0a 65%);
-    border-right:1px solid var(--line);
-    padding:52px 44px;
-    display:flex;
-    flex-direction:column;
-  }
-  .invoice .eyebrow{ margin-bottom:18px; }
-  .invoice h3{
-    font-family:var(--display);
-    font-size:24px;
-    font-weight:700;
-    color:var(--white);
-    margin:0 0 28px;
-  }
-  .invoice-line{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-    font-size:14.5px;
-  }
-  .invoice-line span:first-child{ color:rgba(245,243,239,0.6); }
-  .invoice-line span:last-child{ color:var(--off-white); font-weight:600; }
-  .invoice-line.discount span:last-child{ color:#8fd19e; }
-
-  .invoice-total{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    padding-top:22px;
-    margin-top:6px;
-  }
-  .invoice-total span:first-child{
-    font-family:var(--heading);
-    font-size:15px;
-    color:rgba(245,243,239,0.7);
-  }
-  .invoice-total span:last-child{
-    font-family:var(--display);
-    font-size:38px;
-    font-weight:700;
-    color:var(--gold-light);
-  }
-
-  .invoice-meta{
-    margin-top:auto;
-    padding-top:32px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .invoice-meta .meta-row{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    font-size:13.5px;
-    color:rgba(245,243,239,0.55);
-  }
-  .invoice-meta .meta-row .ic{ color:var(--gold); flex-shrink:0; }
-
-  /* =========================================================
-     7. التذييل (FOOTER)
-  ========================================================= */
-  footer{
-    background:var(--black);
-    border-top:1px solid var(--line);
-    padding:56px 0 30px;
-  }
-  .footer-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    flex-wrap:wrap;
-    gap:32px;
-    padding-bottom:36px;
-    border-bottom:1px solid var(--line);
-    margin-bottom:26px;
-  }
-  .footer-top p{
-    max-width:340px;
-    font-size:14px;
-    color:rgba(245,243,239,0.5);
-    margin:14px 0 0;
-  }
-  .footer-cols{
-    display:flex;
-    gap:60px;
-  }
-  .footer-col h5{
-    font-family:var(--heading);
-    font-size:13px;
-    color:var(--gold-light);
-    margin:0 0 16px;
-  }
-  .footer-col ul{
-    list-style:none;
-    margin:0; padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .footer-col a{
-    font-size:14px;
-    color:rgba(245,243,239,0.6);
-    transition:color 0.2s var(--ease);
-  }
-  .footer-col a:hover{ color:var(--gold-light); }
-
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-    font-size:13px;
-    color:rgba(245,243,239,0.35);
-  }
-
-  .toast{
-    position:fixed;
-    bottom:28px;
-    left:50%;
-    transform:translateX(-50%) translateY(120%);
-    background:#161616;
-    border:1px solid var(--gold);
-    color:var(--white);
-    padding:16px 26px;
-    border-radius:8px;
-    font-size:14.5px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    z-index:2000;
-    transition:transform 0.4s var(--ease);
-    box-shadow:0 20px 40px -10px rgba(0,0,0,0.5);
-  }
-  .toast.show{ transform:translateX(-50%) translateY(0); }
-  .toast .ic{ color:#8fd19e; font-size:18px; }
-
-  /* =========================================================
-     التصميم المتجاوب (RESPONSIVE)
-  ========================================================= */
-  @media (max-width: 980px){
-    .hero-inner{ grid-template-columns:1fr; padding-top:40px; }
-    .hero-visual{ order:-1; max-width:420px; margin:0 auto; }
-    .feature-grid{ grid-template-columns:repeat(2, 1fr); }
-    .pricing-grid{ grid-template-columns:1fr; }
-    .checkout-shell{ grid-template-columns:1fr; }
-    .invoice{ border-right:none; border-top:1px solid var(--line); }
-    .footer-top{ flex-direction:column; }
-    .footer-cols{ gap:40px; }
-  }
-
-  @media (max-width: 760px){
-    .nav-links{
-      position:fixed;
-      top:76px; left:0; right:0;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:0;
-      background:rgba(10,10,10,0.97);
-      border-bottom:1px solid var(--line);
-      max-height:0;
-      overflow:hidden;
-      transition:max-height 0.35s var(--ease);
-    }
-    .nav-links.open{ max-height:320px; }
-    .nav-links li{ width:100%; }
-    .nav-links a{
-      display:block;
-      width:100%;
-      padding:18px 24px;
-      border-bottom:1px solid var(--line);
-    }
-    .nav-links a::after{ display:none; }
-    .nav-cta .btn span.full{ display:none; }
-    .burger{ display:flex; }
-
-    .hero-copy p.lede{ font-size:16px; }
-    .hero-stats{ gap:24px; }
-    .scroll-cue{ display:none; }
-
-    .feature-grid{ grid-template-columns:1fr; }
-    .field-grid{ grid-template-columns:1fr; }
-    .checkout-form{ padding:34px 22px; }
-    .invoice{ padding:34px 22px; }
-    .pkg-toggle{ flex-direction:column; }
-
-    .section-head h2{ font-size:32px; }
-    .slider-arrow{ width:42px; height:42px; font-size:20px; }
-    .slider-arrow.prev{ right:10px; }
-    .slider-arrow.next{ left:10px; }
-    .slide-caption{ padding:18px; }
-    .slide-caption h4{ font-size:16px; }
-  }
-
-  @media (max-width: 420px){
-    .hero-copy h1{ font-size:34px; }
-    .price-row .amount{ font-size:38px; }
-  }
-  
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <a href="#home" class="logo">
-      <span class="flag">🇪🇬</span>
+<a href="#" class="logo">
+  <img src="logo.jpg" alt="Logo" class="logo-img">
+</a>
+    <span class="flag">🇪🇬</span>
       متجر <span class="accent">عرب اسنور</span>
     </a>
 
@@ -1069,6 +25,7 @@
       <li><a href="#home">الرئيسية</a></li>
       <li><a href="#collection">المعرض الرسمي</a></li>
       <li><a href="#size-guide">جدول المقاسات</a></li>
+      <li><a href="#real-gallery">صور الطبيعة</a></li>
       <li><a href="#checkout">اطلب الآن</a></li>
     </ul>
 
@@ -1093,7 +50,7 @@
         صُنع <span class="line-gold">للأبطال.</span>
       </h1>
       <p class="lede">
-        القميص الملكي الرسمي — مُصمم بأحدث تقنيات النسيج الطارد للعرق، ومطرز ديجيتال عالي الدقة بشعار نسر مصر. متوفر الآن بجميع المقاسات مع ميزة المعاينة والدفع عند الاستلام في أي مكان بمصر.
+        عرض الطقم الفراعوني الكامل — مُصمم بأحدث تقنيات النسيج الطارد للعرق، ومطرز ديجيتال عالي الدقة بشعار نسر مصر. متوفر الآن بجميع المقاسات مع ميزة المعاينة والدفع عند الاستلام في أي مكان بمصر.
       </p>
 
       <div class="hero-actions">
@@ -1117,14 +74,15 @@
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="hero-jersey-frame">
-        <img src="1.webp" alt="تيشرت منتخب مصر الملكي - الواجهة الأمامية">
-        <span class="hero-badge-gold">موسم 2026</span>
-        <span class="hero-badge">الطقم الأساسي الأحمر</span>
-      </div>
-    </div>
+   <div class="hero-image-single" style="flex: 1; min-width: 300px; max-width: 500px; margin: 0 auto;">
+  
+  <div style="background: #161616; border-radius: 12px; overflow: hidden; padding: 12px; border: 1px solid #222; position: relative;">
+    <span style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.75); color: #d4af37; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; z-index: 2; border: 1px solid #d4af37;">موسم 2026</span>
+    
+    <img src="1.jpg" alt="تفاصيل التيشرت الفرعوني" style="width: 100%; height: auto; display: block; object-fit: contain; border-radius: 6px;">
   </div>
+
+</div>
 
   <div class="scroll-cue"><span class="dash"></span> اسحب للأسفل لاستكشاف المزيد</div>
 </header>
@@ -1142,18 +100,18 @@
         <div class="slider-track" id="sliderTrack">
 
           <div class="slide">
-            <img src="1.webp" alt="الواجهة الأمامية">
+            <img src="55.jpg" alt="عرض الطقم الكامل">
             <div class="slide-caption">
-              <h4>القميص الأساسي الفرعوني</h4>
-              <span>خامة معالجة بالكامل ومقاومة للتعرق</span>
+              <h4>عروض الأكثر من قطعة</h4>
+              <span class="amount">تبدأ من 1100 جنيه مصري</span>
             </div>
           </div>
 
           <div class="slide">
-            <img src="2.jpg" alt="الطقم الاحتياطي الأبيض">
+            <img src="2.jpg" alt="طقم الأطفال الجديد">
             <div class="slide-caption">
-              <h4>القميص الاحتياطي الأبيض الملكي</h4>
-              <span>تقفيل رياضي مريح جداً في الحركة واللعب</span>
+              <h4>طقم الأطفال الفراعوني الجديد</h4>
+              <span class="amount">متاح للأعمار من سن 8 إلى 12 سنة بسعر 750 جنيه</span>
             </div>
           </div>
 
@@ -1224,20 +182,21 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">اختر العرض المناسب لك</p>
-      <h2>طريقتين<br>لتجهيز مظهرك الرياضي.</h2>
-      <p>يمكنك الحصول على تيشرت منفرد للمباريات، أو توفير الكثير باقتناء الطقم الكامل (الأساسي والاحتياطي).</p>
+      <h2>ثلاث طرق ذكية<br>لتجهيز مظهرك الرياضي.</h2>
+      <p>يمكنك الحصول على تيشرت منفرد، أو توفير الكثير باقتناء عروض الأكثر من قطعة، أو اختيار باقة الأطفال الجديدة.</p>
     </div>
 
     <div class="pricing-grid">
 
+      <!-- الباقة الأولى -->
       <div class="price-card">
         <h3>الباقة الأولى</h3>
         <h2>القميص الملكي المنفرد</h2>
         <div class="price-row">
-          <span class="amount">450</span>
+          <span class="amount">600</span>
           <span class="currency">جنيه مصري</span>
         </div>
-        <p class="price-shipping">+ <b>50 جنيه</b> مصاريف الشحن لجميع المحافظات</p>
+        <p class="price-shipping">تكلفة الشحن تختلف حسب محافظتك</p>
 
         <ul class="price-list">
           <li>1 × قميص منتخب مصر الملكي (الأحمر أو الأبيض)</li>
@@ -1250,10 +209,10 @@
           <label for="sizeSelectPkg1">اختر مقاسك المفضل</label>
           <div class="select-wrap">
             <select id="sizeSelectPkg1">
-              <option value="M">M — مناسب حتى 75 كيلو</option>
-              <option value="L">L — مناسب من 75 إلى 85 كيلو</option>
-              <option value="XL">XL — مناسب من 85 إلى 95 كيلو</option>
-              <option value="2XL">2XL — مناسب من 95 إلى 105 كيلو</option>
+              <option value="M">M — مناسب حتى 70 كيلو</option>
+              <option value="L">L — مناسب من 70 إلى 80 كيلو</option>
+              <option value="XL">XL — مناسب من 80 إلى 90 كيلو</option>
+              <option value="2XL">2XL — مناسب من 90 إلى 105 كيلو</option>
             </select>
           </div>
         </div>
@@ -1261,39 +220,74 @@
         <a href="#checkout" class="btn btn-ghost" data-select-package="1">اختر هذا العرض</a>
       </div>
 
+      <!-- الباقة الثانية (المعدلة) -->
       <div class="price-card featured">
         <span class="price-tag">العرض الأكثر طلباً 🔥</span>
         <h3>الباقة الثانية</h3>
-        <h2>عرض الطقم الكامل (Duo)</h2>
+        <h2>عروض الأكثر من قطعة</h2>
         <div class="price-row">
-          <span class="amount">790</span>
-          <span class="currency">جنيه مصري</span>
+          <span class="amount">1100</span>
+          <span class="currency">جنيه لقطعتين</span>
         </div>
-        <p class="price-strike">بدلاً من 1,000 جنيه عند الشراء بشكل منفرد</p>
-        <p class="price-shipping"><b>الشحن مجاني بالكامل</b> — وفرت 110 جنيه كاملة</p>
+       <p class="package-promo-details">
+  1100 جنيه لقطعتين <span class="old-price">بدلاً من 1200 جنيه</span><br>
+  1500 جنيه لثلاث قطع <span class="old-price">بدلاً من 1800 جنيه</span>
+</p>
+        <p class="price-shipping">تكلفة الشحن تختلف حسب محافظتك</p>
 
-        <span class="save-badge">★ خصم فوري قيمته 110 جنيه</span>
+        <span class="save-badge">★ يطبق خصم تلقائي عند زيادة عدد القطع</span>
 
         <ul class="price-list">
-          <li>2 × تيشرت منتخب مصر — الطقم الأساسي + الاحتياطي</li>
-          <li>خامات رياضية فاخرة لكلا القميصين</li>
+          <li>يبدأ العرض تلقائياً من قطعتين (طقم أساسي + احتياطي)</li>
+          <li>خامات رياضية فاخرة لكافة القمصان المطلوبة</li>
           <li>تطريز إيطالي عالي الجودة ومقاوم للغسيل</li>
-          <li>توصيل مجاني وسريع لباب البيت دون أي رسوم إضافية</li>
+          <li>إمكانية إضافة قطع وزيادة الخصم المباشر بالفاتورة</li>
         </ul>
 
         <div class="size-field">
           <label for="sizeSelectPkg2">اختر مقاسك المفضل</label>
           <div class="select-wrap">
             <select id="sizeSelectPkg2">
-              <option value="M">M — مناسب حتى 75 كيلو</option>
-              <option value="L">L — مناسب من 75 إلى 85 كيلو</option>
-              <option value="XL">XL — مناسب من 85 إلى 95 كيلو</option>
-              <option value="2XL">2XL — مناسب من 95 إلى 105 كيلو</option>
+              <option value="M">M — مناسب حتى 70 كيلو</option>
+              <option value="L">L — مناسب من 70 إلى 80 كيلو</option>
+              <option value="XL">XL — مناسب من 80 إلى 90 كيلو</option>
+              <option value="2XL">2XL — مناسب من 90 إلى 105 كيلو</option>
             </select>
           </div>
         </div>
 
-        <a href="#checkout" class="btn btn-gold" data-select-package="2">اختر هذا العرض ووفر الشحن</a>
+        <a href="#checkout" class="btn btn-gold" data-select-package="2">اختر هذا العرض وحدد القطع بالأسفل</a>
+      </div>
+
+      <!-- الباقة الثالثة -->
+      <div class="price-card">
+        <h3>الباقة الثالثة</h3>
+        <h2>طقم الأطفال الفرعوني</h2>
+        <div class="price-row">
+          <span class="amount">750</span>
+          <span class="currency">جنيه مصري</span>
+        </div>
+        <p class="price-shipping">تكلفة الشحن تختلف حسب محافظتك</p>
+
+        <ul class="price-list">
+          <li>1 × طقم أطفال كامل (التيشرت الأحمر + الشورت الأبيض)</li>
+          <li>مخصص للأعمار السنية الصغيرة بجودة فاخرة</li>
+          <li>خامة معالجة بالكامل ومريحة للأطفال في الحركة</li>
+          <li>تطريز شعار نسر مصر بجودة الديجيتال العالية</li>
+        </ul>
+
+        <div class="size-field">
+          <label for="sizeSelectPkg3">اختر السن المناسب</label>
+          <div class="select-wrap">
+            <select id="sizeSelectPkg3">
+              <option value="8-9">مناسب من سن 8 إلى 9 سنوات</option>
+              <option value="10-11">مناسب من سن 10 إلى 11 سنة</option>
+              <option value="12">مناسب لسن 12 سنة</option>
+            </select>
+          </div>
+        </div>
+
+        <a href="#checkout" class="btn btn-ghost" data-select-package="3">اختر عرض الأطفال</a>
       </div>
 
     </div>
@@ -1318,22 +312,40 @@
             <label>اختر باقة العرض <span class="req">*</span></label>
             <div class="pkg-toggle">
               <input type="radio" name="package" id="pkgOption1" value="1" checked>
-              <label for="pkgOption1">الباقة الأولى<span>تيشرت منفرد — 450 جنيه</span></label>
+              <label for="pkgOption1">الباقة الأولى<span>تيشرت منفرد — 600 جنيه</span></label>
 
               <input type="radio" name="package" id="pkgOption2" value="2">
-              <label for="pkgOption2">الباقة الثانية<span>طقم قطعتين — 790 جنيه + شحن مجاني</span></label>
+              <label for="pkgOption2">الباقة الثانية<span>عروض الأكثر من قطعة — تبدأ من قطعتين</span></label>
+              
+              <input type="radio" name="package" id="pkgOption3" value="3">
+              <label for="pkgOption3">الباقة الثالثة<span>طقم الأطفال — 750 جنيه</span></label>
             </div>
           </div>
 
           <div class="field full">
-            <label for="checkoutSize">مقاس التيشرت المطلوب <span class="req">*</span></label>
+            <label for="checkoutSize">المقاس / السن المطلوب <span class="req">*</span></label>
             <div class="select-wrap">
               <select id="checkoutSize" required>
-                <option value="M">M — مناسب حتى 75 كيلو</option>
-                <option value="L">L — مناسب من 75 إلى 85 كيلو</option>
-                <option value="XL">XL — مناسب من 85 إلى 95 كيلو</option>
-                <option value="2XL">2XL — مناسب من 95 إلى 105 كيلو</option>
+                <option value="M">M — مناسب حتى 70 كيلو</option>
+                <option value="L">L — مناسب من 70 إلى 80 كيلو</option>
+                <option value="XL">XL — مناسب من 80 إلى 90 كيلو</option>
+                <option value="2XL">2XL — مناسب من 90 إلى 105 كيلو</option>
               </select>
+            </div>
+          </div>
+
+          <!-- ميزة خيار الطباعة الجديدة -->
+          <div class="field full printing-checkbox-wrap" style="margin: 15px 0; background: rgba(212,175,55,0.1); padding: 12px; border-radius: 8px; border: 1px dashed var(--gold, #d4af37);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="enablePrinting" name="enablePrinting" style="width: 20px; height: 20px; cursor: pointer;">
+              <label for="enablePrinting" style="margin: 0; font-weight: bold; cursor: pointer; color: #fff;">
+                متاح الطباعة على التيشرتات (+200 ج) 🔥
+              </label>
+            </div>
+            
+            <div id="printingTextFieldWrap" style="display: none; margin-top: 12px;">
+              <label for="printingText" style="display:block; margin-bottom: 5px; font-size: 0.9rem;">الاسم والرقم المطلوب طباعتهم:</label>
+              <input type="text" id="printingText" placeholder="اكتب هنا الاسم والرقم (مثال: محمد 10)">
             </div>
           </div>
 
@@ -1358,37 +370,51 @@
               <div class="select-wrap">
                 <select id="governorate" required>
                   <option value="" disabled selected>اختر محافظتك من القائمة</option>
-                  <option>القاهرة</option>
-                  <option>الجيزة</option>
-                  <option>الإسكندرية</option>
-                  <option>القليوبية</option>
-                  <option>الشرقية</option>
-                  <option>الدقهلية</option>
-                  <option>الغربية</option>
-                  <option>المنوفية</option>
-                  <option>البحيرة</option>
-                  <option>كفر الشيخ</option>
-                  <option>دمياط</option>
-                  <option>بورسعيد</option>
-                  <option>الإسماعيلية</option>
-                  <option>السويس</option>
-                  <option>شمال سيناء</option>
-                  <option>جنوب سيناء</option>
-                  <option>الفيوم</option>
-                  <option>بني سويف</option>
-                  <option>المنيا</option>
-                  <option>أسيوط</option>
-                  <option>سوهاج</option>
-                  <option>قنا</option>
-                  <option>الأقصر</option>
-                  <option>أسوان</option>
-                  <option>البحر الأحمر</option>
-                  <option>الوادي الجديد</option>
-                  <option>مطروح</option>
+                  <option value="القاهرة">القاهرة</option>
+                  <option value="الجيزة">الجيزة</option>
+                  <option value="الإسكندرية">الإسكندرية</option>
+                  <option value="القليوبية">القليوبية</option>
+                  <option value="الشرقية">الشرقية</option>
+                  <option value="الدقهلية">الدقهلية</option>
+                  <option value="الغربية">الغربية</option>
+                  <option value="المنوفية">المنوفية</option>
+                  <option value="البحيرة">البحيرة</option>
+                  <option value="كفر الشيخ">كفر الشيخ</option>
+                  <option value="دمياط">دمياط</option>
+                  <option value="بورسعيد">بورسعيد</option>
+                  <option value="الإسماعيلية">الإسماعيلية</option>
+                  <option value="السويس">السويس</option>
+                  <option value="شمال سيناء">شمال سيناء</option>
+                  <option value="جنوب سيناء">جنوب سيناء</option>
+                  <option value="الفيوم">الفيوم</option>
+                  <option value="بني سويف">بني سويف</option>
+                  <option value="المنيا">المنيا</option>
+                  <option value="أسيوط">أسيوط</option>
+                  <option value="سوهاج">سوهاج</option>
+                  <option value="قنا">قنا</option>
+                  <option value="الأقصر">الأقصر</option>
+                  <option value="أسوان">أسوان</option>
+                  <option value="البحر الأحمر">البحر الأحمر</option>
+                  <option value="الوادي الجديد">الوادي الجديد</option>
+                  <option value="مطروح">مطروح</option>
                 </select>
               </div>
             </div>
+            
+            <!-- حقل الكمية المطور بأزرار زيادة ونقصان مخصصة -->
+            <div class="field full quantity-field-wrap" style="margin-bottom: 15px;">
+              <label style="display: block; margin-bottom: 8px;">الكمية المطلوب شحنها:</label>
+              <div class="qty-control-box" style="display: flex; align-items: center; max-width: 180px; background: #161616; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
+                <button type="button" id="minusBtn" style="width: 50px; height: 45px; background: none; border: none; color: #fff; font-size: 1.5rem; font-weight: bold; cursor: pointer; transition: background 0.2s;">-</button>
+                <input type="number" id="quantity" class="product-quantity" value="1" min="1" max="10" readonly style="width: 80px; height: 45px; background: none; border: none; text-align: center; color: #fff; font-size: 1.2rem; font-weight: bold; -moz-appearance: textfield; appearance: textfield; pointer-events: none;">
+                <button type="button" id="plusBtn" style="width: 50px; height: 45px; background: none; border: none; color: #fff; font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: background 0.2s;">+</button>
+              </div>
+            </div>
 
+            <div class="product-total-price" style="margin-top: 5px; margin-bottom: 15px; font-weight: bold; color: var(--gold, #d4af37);">
+              السعر الإجمالي للمنتجات: <span class="total-val">600</span> ج.م
+            </div>
+            
             <div class="field full">
               <label for="address">العنوان بالتفصيل <span class="req">*</span></label>
               <textarea id="address" placeholder="اسم الشارع، رقم المنزل، الطابق، الشقة، أو علامة مميزة قريبة..." required></textarea>
@@ -1399,7 +425,7 @@
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-1.742-.871-2.883-1.554-4.03-3.524-.305-.524.305-.487.871-1.62.099-.198.05-.371-.05-.52-.099-.149-.669-1.611-.916-2.206-.247-.594-.5-.514-.67-.514-.247 0-.498.075-.747.075-.247 0-.494.099-.694.297-.198.198-.793.793-.793 1.93 0 1.139.81 2.247.91 2.397.099.149 1.388 2.247 3.486 3.158 2.099.91 2.099.612 2.378.587.272-.025.892-.358 1.014-.7.124-.347.124-.638.087-.7-.038-.062-.144-.099-.282-.16z"/><path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.464 3.46 1.337 4.948l-1.397 5.097 5.225-1.371c1.421.778 3.027 1.193 4.832 1.193h.005c5.514 0 9.997-4.483 9.997-9.997s-4.483-9.997-9.997-9.997zm5.85 15.847c-.84.84-2.07 1.353-4.456 1.353-1.516 0-2.91-.371-4.094-1.025l-.293-.16-2.92.766.78-2.846-.173-.297c-.732-1.183-1.124-2.555-1.124-3.987 0-4.115 3.353-7.468 7.467-7.468 1.995 0 3.866.778 5.27 2.184 1.405 1.405 2.184 3.275 2.184 5.27 0 2.386-.513 3.62-1.353 4.456l-1.288-1.246z"/></svg>
             تأكيد وإرسال الطلب عبر الواتساب
           </button>
-          <p class="form-note">بمجرد الضغط على الزر، سيفتح لك تطبيق الواتساب وبداخله نص الرسالة مجهز بالكامل للتأكيد، ولا نجمع أي مدفوعات هنا إلكترونياً.</p>
+          <p class="form-note">بمجرد الضغط على الزر، سيفتح لك تطبيق الواتساب وبداخله نص الرسالة مجهز بالكامل للتأكيد.</p>
         </form>
       </div>
 
@@ -1409,24 +435,28 @@
 
         <div class="invoice-line">
           <span id="invPkgLabel">القميص الملكي المنفرد</span>
-          <span id="invPkgPrice">450 جنيه</span>
+          <span id="invPkgPrice">600 جنيه</span>
         </div>
         <div class="invoice-line">
           <span>المقاس المختار</span>
           <span id="invSize">M</span>
         </div>
+        <div class="invoice-line" id="invPrintingRow" style="display:none; color: var(--gold, #d4af37);">
+          <span>تكلفة خدمة الطباعة</span>
+          <span>+ 200 جنيه</span>
+        </div>
         <div class="invoice-line">
           <span>تكلفة الشحن والتوصيل</span>
-          <span id="invShipping">50 جنيه</span>
+          <span id="invShipping">يُحسب عند اختيار المحافظة</span>
         </div>
         <div class="invoice-line discount" id="invDiscountRow" style="display:none;">
           <span>وفرت مع باقة العرض</span>
-          <span id="invDiscount">– 110 جنيه</span>
+          <span id="invDiscount">– 0 جنيه</span>
         </div>
 
         <div class="invoice-total">
           <span>المبلغ الإجمالي عند الاستلام</span>
-          <span id="invTotal">500 جنيه</span>
+          <span id="invTotal">600 جنيه</span>
         </div>
 
         <div class="invoice-meta">
@@ -1439,13 +469,53 @@
   </div>
 </section>
 
+<section class="real-gallery-section" id="real-gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">معاينة على أرض الواقع</p>
+      <h2>صور حقيقية للمنتج</h2>
+      <p class="sub-text">صور تم التقاطها مباشرة داخل الاستوديو على الطبيعة لتوضيح التفاصيل، الألوان الحقيقية، وجودة تقفيل الطقم الفراعوني بالملي.</p>
+    </div>
+
+    <div class="slider-shell">
+      <div class="slider-track-viewport">
+        <div class="slider-track" id="realGalleryTrack">
+          
+          <div class="slide">
+            <img src="100.jpg" alt="صورة حقيقية 1">
+          </div>
+          <div class="slide">
+            <img src="200.jpg" alt="صورة حقيقية 2">
+          </div>
+          <div class="slide">
+            <img src="300.jpg" alt="صورة حقيقية 3">
+          </div>
+          <div class="slide">
+            <img src="400.jpg" alt="صورة حقيقية 4">
+          </div>
+          <div class="slide">
+            <img src="500.jpg" alt="صورة حقيقية 5">
+          </div>
+          <div class="slide">
+            <img src="600.jpg" alt="صورة حقيقية 6">
+          </div>
+
+        </div>
+      </div>
+
+      <button class="slider-arrow prev" id="realPrevBtn">&#8250;</button>
+      <button class="slider-arrow next" id="realNextBtn">&#8249;</button>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="footer-top">
       <div>
         <a href="#home" class="logo">
           <span class="flag">🇪🇬</span>
-          متجر <span class="accent">العرب</span>
+          metger <span class="accent">العرب</span>
         </a>
         <p>الوجهة الأولى لشراء تيشيرتات ومنتجات منتخب مصر الوطني بجودة رياضية متميزة، خامات مريحة، وتوصيل فوري لباب البيت في كافة أنحاء الجمهورية.</p>
       </div>
@@ -1457,6 +527,7 @@
             <li><a href="#home">الرئيسية</a></li>
             <li><a href="#collection">المعرض</a></li>
             <li><a href="#size-guide">دليل المقاسات</a></li>
+            <li><a href="#real-gallery">صور الطبيعة</a></li>
             <li><a href="#checkout">طلب المنتج</a></li>
           </ul>
         </div>
@@ -1483,246 +554,27 @@
   <span id="toastMsg">جاري تجهيز الفاتورة وفتح الواتساب الآن…</span>
 </div>
 
-<script>
-(function(){
-  "use strict";
+<script src="script.js"></script>
+<p style="text-align: center; margin-top: 20px;">
+  <a href="#" id="openPolicyBtn" style="color: #aaa; text-decoration: underline; font-size: 0.9rem; cursor: pointer;">سياسة الاستبدال والاسترجاع</a>
+</p>
 
-  var WHATSAPP_NUMBER = "201069086119";
-
-  var PACKAGES = {
-    "1": { label: "القميص الملكي المنفرد", price: 450, shipping: 50, discount: 0, items: "تيشرت واحد فريد من اختيار العميل" },
-    "2": { label: "عرض الطقم الكامل المزدوج (الأساسي والاحتياطي)", price: 790, shipping: 0, discount: 110, items: "طقم قطعتين كامل (الأحمر الأساسي + الأبيض الاحتياطي)" }
-  };
-
-  /* قائمة الموبايل */
-  var burgerBtn = document.getElementById("burgerBtn");
-  var navLinks  = document.getElementById("navLinks");
-
-  burgerBtn.addEventListener("click", function(){
-    var isOpen = navLinks.classList.toggle("open");
-    burgerBtn.classList.toggle("open", isOpen);
-    burgerBtn.setAttribute("aria-expanded", String(isOpen));
-  });
-
-  navLinks.querySelectorAll("a").forEach(function(link){
-    link.addEventListener("click", function(){
-      navLinks.classList.remove("open");
-      burgerBtn.classList.remove("open");
-      burgerBtn.setAttribute("aria-expanded", "false");
-    });
-  });
-
-  /* =========================================================
-     تعديل كود السلايدر - الحسبة تعتمد الآن على عرض الصندوق الفعلي بـ بكسل متوافق مع الـ RTL
-  ========================================================= */
-  var track      = document.getElementById("sliderTrack");
-  var slides     = track.querySelectorAll(".slide");
-  var totalSlides = slides.length;
-  var currentIndex = 0;
-
-  var counterCurrent = document.getElementById("slideCurrent");
-  var counterTotal   = document.getElementById("slideTotal");
-  var dotsWrap        = document.getElementById("sliderDots");
-  var prevBtn = document.getElementById("prevBtn");
-  var nextBtn = document.getElementById("nextBtn");
-
-  counterTotal.textContent = totalSlides;
-
-  // بناء النقاط السفلية
-  dotsWrap.innerHTML = "";
-  for (var i = 0; i < totalSlides; i++) {
-    var dot = document.createElement("button");
-    dot.setAttribute("aria-label", "الانتقال للصورة رقم " + (i + 1));
-    if (i === 0) dot.classList.add("active");
-    dot.addEventListener("click", (function(idx){
-      return function(){ goToSlide(idx); };
-    })(i));
-    dotsWrap.appendChild(dot);
-  }
-
-  function updateSlider(){
-    var viewportWidth = document.querySelector('.slider-track-viewport').clientWidth;
-    // تم قلب الاتجاه إلى الموجب ليتناسب تماماً مع خصائص الـ dir="rtl" في المتصفحات
-    track.style.transform = "translateX(" + (currentIndex * viewportWidth) + "px)";
+<div id="policyModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; direction: rtl;">
+  <div style="background: #111; border: 1px solid #222; padding: 25px; border-radius: 12px; max-width: 550px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; color: #fff;">
+    <span id="closePolicyBtn" style="position: absolute; top: 15px; left: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
     
-    counterCurrent.textContent = currentIndex + 1;
-    var dots = dotsWrap.querySelectorAll("button");
-    dots.forEach(function(d, idx){
-      d.classList.toggle("active", idx === currentIndex);
-    });
-  }
-
-  function goToSlide(idx){
-    currentIndex = (idx + totalSlides) % totalSlides;
-    updateSlider();
-  }
-
-  // ربط الأسهم بالوظائف البرمجية المعدلة لليمين واليسار
-  prevBtn.addEventListener("click", function(){ goToSlide(currentIndex - 1); });
-  nextBtn.addEventListener("click", function(){ goToSlide(currentIndex + 1); });
-
-  // دعم السحب باللمس على الموبايل
-  var touchStartX = 0;
-  var touchEndX = 0;
-
-  track.addEventListener("touchstart", function(e){
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  track.addEventListener("touchend", function(e){
-    touchEndX = e.changedTouches[0].screenX;
-    var delta = touchEndX - touchStartX;
-    if (Math.abs(delta) > 40) {
-      if (delta < 0) { goToSlide(currentIndex + 1); }
-      else { goToSlide(currentIndex - 1); }
-    }
-  }, { passive: true });
-
-  // إعادة الحساب التلقائي عند تدوير شاشة الهاتف أو تكبير وتصغير المتصفح
-  window.addEventListener('resize', updateSlider);
-
-  /* أزرار الشراء الفوري */
-  document.querySelectorAll("[data-select-package]").forEach(function(btn){
-    btn.addEventListener("click", function(e){
-      var pkg = btn.getAttribute("data-select-package");
-      var radio = document.getElementById(pkg === "1" ? "pkgOption1" : "pkgOption2");
-      if (radio) {
-        radio.checked = true;
-        radio.dispatchEvent(new Event("change"));
-      }
-      var sizeSrc = document.getElementById(pkg === "1" ? "sizeSelectPkg1" : "sizeSelectPkg2");
-      var sizeDst = document.getElementById("checkoutSize");
-      if (sizeSrc && sizeDst) { sizeDst.value = sizeSrc.value; }
-      updateInvoice();
-    });
-  });
-
-  /* تحديث الفاتورة الديناميكية */
-  var invPkgLabel   = document.getElementById("invPkgLabel");
-  var invPkgPrice   = document.getElementById("invPkgPrice");
-  var invSize       = document.getElementById("invSize");
-  var invShipping   = document.getElementById("invShipping");
-  var invDiscountRow= document.getElementById("invDiscountRow");
-  var invDiscount   = document.getElementById("invDiscount");
-  var invTotal      = document.getElementById("invTotal");
-
-  var checkoutSizeSelect = document.getElementById("checkoutSize");
-  var pkgRadios = document.querySelectorAll('input[name="package"]');
-
-  function getSelectedPackageKey(){
-    var checked = document.querySelector('input[name="package"]:checked');
-    return checked ? checked.value : "1";
-  }
-
-  function updateInvoice(){
-    var key = getSelectedPackageKey();
-    var pkg = PACKAGES[key];
-
-    invPkgLabel.textContent = pkg.label;
-    invPkgPrice.textContent = pkg.price + " جنيه";
-    invSize.textContent = checkoutSizeSelect.value;
-    invShipping.textContent = pkg.shipping === 0 ? "شحن مجاني 🎁" : pkg.shipping + " جنيه";
-
-    if (pkg.discount > 0) {
-      invDiscountRow.style.display = "flex";
-      invDiscount.textContent = "– " + pkg.discount + " جنيه";
-    } else {
-      invDiscountRow.style.display = "none";
-    }
-
-    var total = pkg.price + pkg.shipping;
-    invTotal.textContent = total + " جنيه";
-  }
-
-  pkgRadios.forEach(function(radio){
-    radio.addEventListener("change", updateInvoice);
-  });
-  checkoutSizeSelect.addEventListener("change", updateInvoice);
-
-  updateInvoice();
-
-  /* معالجة وإرسال نص الفاتورة للواتساب */
-  var orderForm = document.getElementById("orderForm");
-  var toast = document.getElementById("toast");
-  var toastMsg = document.getElementById("toastMsg");
-
-  function showToast(message){
-    toastMsg.textContent = message;
-    toast.classList.add("show");
-    setTimeout(function(){ toast.classList.remove("show"); }, 3800);
-  }
-
-  function buildWhatsAppMessage(data){
-    var lines = [];
-    lines.push("🇪🇬 *طلب جديد — متجر العرب* 🇪🇬");
-    lines.push("");
-    lines.push("📦 *الباقة المختارة:* " + data.packageLabel);
-    lines.push("🧾 *تفاصيل القطع:* " + data.packageItems);
-    lines.push("📐 *المقاس المطلوب:* " + data.size);
-    lines.push("");
-    lines.push("👤 *بيانات العميل المستلم*");
-    lines.push("• الاسم بالكامل: " + data.name);
-    lines.push("• رقم الهاتف الأساسي: " + data.primaryMobile);
-    lines.push("• رقم الهاتف البديل: " + data.altMobile);
-    lines.push("• المحافظة: " + data.governorate);
-    lines.push("• العنوان بالتفصيل: " + data.address);
-    lines.push("");
-    lines.push("💰 *ملخص الحساب والدفع عند الاستلام*");
-    lines.push("• قيمة الباقة الأساسية: " + data.subtotal + " جنيه");
-    lines.push("• تكلفة خدمة الشحن: " + data.shippingLabel);
-    if (data.discount > 0) {
-      lines.push("• قيمة الخصم الموفر: −" + data.discount + " جنيه 🎉");
-    }
-    lines.push("• *المبلغ الإجمالي المطلوب من المندوب: " + data.total + " جنيه مصري*");
-    lines.push("");
-    lines.push("✅ برجاء مراجعة البيانات وتأكيد تجهيز الطلبية للشحن الفوري.");
-    lines.push("_أُرسلت هذه الرسالة تلقائياً من نظام متجر العرب الإلكتروني_");
-    return lines.join("\n");
-  }
-
-  orderForm.addEventListener("submit", function(e){
-    e.preventDefault();
-
-    var fullName    = document.getElementById("fullName").value.trim();
-    var primaryMobile = document.getElementById("primaryMobile").value.trim();
-    var altMobile    = document.getElementById("altMobile").value.trim();
-    var governorate  = document.getElementById("governorate").value;
-    var address      = document.getElementById("address").value.trim();
-    var size         = checkoutSizeSelect.value;
-    var pkgKey       = getSelectedPackageKey();
-    var pkg          = PACKAGES[pkgKey];
-
-    if (!fullName || !primaryMobile || !altMobile || !governorate || !address) {
-      showToast("يرجى ملء جميع الحقول المطلوبة أولاً.");
-      return;
-    }
-
-    var total = pkg.price + pkg.shipping;
-    var shippingLabel = pkg.shipping === 0 ? "مجاني بدون رسوم" : pkg.shipping + " جنيه";
-
-    var message = buildWhatsAppMessage({
-      packageLabel: pkg.label,
-      packageItems: pkg.items,
-      size: size,
-      name: fullName,
-      primaryMobile: primaryMobile,
-      altMobile: altMobile,
-      governorate: governorate,
-      address: address,
-      subtotal: pkg.price,
-      shippingLabel: shippingLabel,
-      discount: pkg.discount,
-      total: total
-    });
-
-    var whatsappUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-
-    showToast("تم تجهيز طلبيتك بنجاح! جاري فتح الواتساب للتأكيد الفوري…");
-    window.open(whatsappUrl, "_blank");
-  });
-
-})();
-</script>
-
+    <h3 style="color: var(--gold, #d4af37); border-bottom: 1px solid #222; padding-bottom: 10px; margin-top: 0; font-size: 1.4rem;">سياسة الاستبدال والاسترجاع</h3>
+    
+    <ul style="padding-right: 20px; line-height: 1.8; color: #ccc; font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;"><strong style="color:#fff;">المعاينة عند الاستلام:</strong> فحص ومعاينة الطقم بالكامل قبل الدفع لضمان مطابقتها للصور.</li>
+      <li style="margin-bottom: 10px;"><strong style="color:#fff;">المدة الزمنية:</strong> الاستبدال والاسترجاع متاح خلال <span style="color:var(--gold, #d4af37);">24 ساعة</span> من الاستلام.</li>
+      <li style="margin-bottom: 10px;"><strong style="color:#fff;">الحالة:</strong> يجب أن يكون المنتج بحالته الأصلية الفاخرة وبغلافه دون استخدام.</li>
+      <li style="margin-bottom: 10px;"><strong style="color:#fff;">العيوب والأخطاء:</strong> نتحمل تكلفة الشحن بالكامل في حال وجود عيب أو مقاس خاطئ.</li>
+      <li style="margin-bottom: 10px;"><strong style="color:#fff;">تغيير المقاس:</strong> في حال رغبتك بتغيير مقاسك المختار، يتم دفع رسوم الشحن فقط.</li>
+    </ul>
+    
+    <button id="closePolicyBottomBtn" style="background: var(--red, #e31b23); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 15px;">إغلاق</button>
+  </div>
+</div>
 </body>
 </html>
