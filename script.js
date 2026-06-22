@@ -6,7 +6,7 @@
   var PACKAGES = {
     "1": { label: "القميص الملكي المنفرد", price: 600, items: "تيشرت واحد فريد من اختيار العميل" },
     "2": { label: "عروض الأكثر من قطعة", price: 790, items: "طقم مخصص (عدد القطع حسب اختيار العميل)" },
-    "3": { label: "طقم الأطفال الفرعوني", price: 750, items: "طقم أطفال كامل (التيشرت الأحمر + الشورت الأبيض)" }
+    "3": { label: "باقة الأشبال 🦁", price: 750, items: "طقم أطفال كامل (التيشرت الأحمر + الشورت الأبيض)" }
   };
 
   /* قائمة الموبايل */
@@ -196,6 +196,7 @@
       `;
     } else {
       sizeDst.innerHTML = `
+        <option value="S">S — مناسب حتى 55 كيلو</option>
         <option value="M">M — مناسب حتى 70 كيلو</option>
         <option value="L">L — مناسب من 70 إلى 80 كيلو</option>
         <option value="XL">XL — مناسب من 80 إلى 90 كيلو</option>
@@ -262,60 +263,66 @@
     var quantity = parseInt(quantityInput.value);
     if (isNaN(quantity) || quantity < 1) { quantity = 1; }
 
-    // 1. حساب قيمة المنتجات بناءً على معادلة الخصم الجديدة للباقة الثانية
+    // حساب قيمة المنتجات بناءً على معادلات الخصم
     var productsPrice = 0;
     var savedDiscount = 0;
 
     if (key === "2") {
-      // تطبيق معادلة "عروض الأكثر من قطعة" الديناميكية
       if (quantity === 1) {
         productsPrice = 600; 
         savedDiscount = 0;
       } else if (quantity === 2) {
-        productsPrice = 1100; // قطعتين بـ 1100 بدلاً من 1200
+        productsPrice = 1100; 
         savedDiscount = 100;
       } else if (quantity === 3) {
-        productsPrice = 1500; // 3 قطع بـ 1500 بدلاً من 1800
+        productsPrice = 1500; 
         savedDiscount = 300;
       } else {
-        // 4 قطع أو أكثر: 1500 لأول 3 قطع + 500 لكل قطعة إضافية
         productsPrice = 1500 + ((quantity - 3) * 500);
         savedDiscount = (quantity * 600) - productsPrice;
       }
+    } else if (key === "3") {
+      if (quantity === 1) {
+        productsPrice = 750;
+        savedDiscount = 0;
+      } else if (quantity === 2) {
+        productsPrice = 1400; 
+        savedDiscount = 100;
+      } else {
+        if (quantity === 3) {
+          productsPrice = 2050;
+        } else {
+          productsPrice = 2050 + ((quantity - 3) * 650); 
+        }
+        savedDiscount = (quantity * 750) - productsPrice; 
+      }
     } else {
-      // الباقة الأولى أو باقة الأطفال مضروبة في الكمية مباشرة
       productsPrice = pkg.price * quantity;
     }
-    // 2. حساب تكلفة الشحن جغرافيًا بناءً على المحافظة
+
+    // حساب تكلفة الشحن جغرافياً (دائماً تظهر الحسبة دون أي استثناء شحن مجاني)
     var shippingCost = 0;
     var govValue = governorateSelect ? governorateSelect.value : "";
 
     if (!govValue) {
       if (invShipping) invShipping.textContent = "يُحسب عند اختيار المحافظة";
     } else {
-      // إذا اختار الباقة الثانية وعدد القطع قطعتين فما فوق، الشحن مجاني بالكامل
-      if (key === "2" && quantity >= 2) {
-        shippingCost = 0;
-        if (invShipping) invShipping.textContent = "شحن مجاني 🎁";
+      if (govValue === "القاهرة" || govValue === "الجيزة") {
+        shippingCost = 80;
+        if (invShipping) invShipping.textContent = "80 جنيه";
       } else {
-        // الشحن العادي حسب الإقليم
-        if (govValue === "القاهرة" || govValue === "الجيزة") {
-          shippingCost = 80;
-          if (invShipping) invShipping.textContent = "80 جنيه";
-        } else {
-          shippingCost = 120;
-          if (invShipping) invShipping.textContent = "120 جنيه";
-        }
+        shippingCost = 120;
+        if (invShipping) invShipping.textContent = "120 جنيه";
       }
     }
 
-    // 3. إضافة تكلفة خدمة الطباعة إذا تم تفعيلها
+    // إضافة تكلفة خدمة الطباعة إذا تم تفعيلها
     var printingCost = 0;
     if (enablePrinting && enablePrinting.checked) {
       printingCost = 200;
     }
 
-    // 4. حساب الإجمالي النهائي التام
+    // حساب الإجمالي النهائي التام
     var totalFinal = productsPrice + shippingCost + printingCost;
 
     // تحديث البيانات على واجهة الشاشة والفاتورة الجانبية
@@ -333,7 +340,7 @@
     if (invTotal) invTotal.textContent = totalFinal + " جنيه";
     
     var totalValSpan = document.querySelector('.total-val');
-    if (totalValSpan) totalValSpan.textContent = productsPrice; // إجمالي المنتجات المعروض داخل الفورم
+    if (totalValSpan) totalValSpan.textContent = productsPrice; 
   }
 
   // ربط أحداث الاستماع للتحديث اللحظي بالفاتورة
@@ -367,10 +374,8 @@
     lines.push("");
     lines.push("📦 *الباقة المختارة:* " + data.packageLabel);
     lines.push("🔢 *الكمية المطلوبة:* " + data.quantity);
-    lines.push("🧾 *نوعية القطع:* " + data.packageItems);
     lines.push("📐 *المقاس / السن المطلوب:* " + data.size);
     
-    // سطر الطباعة الديناميكي الجديد
     if (data.printingText) {
       lines.push("🔥 *المطلوب طباعته:* " + data.printingText);
     }
@@ -420,7 +425,6 @@
         return;
       }
 
-      // إعادة حساب نفس القيم المدخلة للتأكيد قبل إرسال الرسالة
       var productsPrice = 0;
       var savedDiscount = 0;
       if (pkgKey === "2") {
@@ -431,23 +435,34 @@
           productsPrice = 1500 + ((quantity - 3) * 500);
           savedDiscount = (quantity * 600) - productsPrice;
         }
+      } else if (pkgKey === "3") {
+        if (quantity === 1) { 
+          productsPrice = 750; 
+          savedDiscount = 0; 
+        } else if (quantity === 2) { 
+          productsPrice = 1400; 
+          savedDiscount = 100; 
+        } else if (quantity === 3) {
+          productsPrice = 2050;
+          savedDiscount = 200;
+        } else { 
+          productsPrice = 2050 + ((quantity - 3) * 650); 
+          savedDiscount = (quantity * 750) - productsPrice; 
+        }
       } else {
         productsPrice = pkg.price * quantity;
       }
 
       var shippingCost = 0;
       var shippingLabel = "";
-      if (pkgKey === "2" && quantity >= 2) {
-        shippingCost = 0;
-        shippingLabel = "مجاني بدون رسوم 🎁";
+      
+      // الشحن يحسب بالكامل وبدون استثناءات لرسالة الواتساب أيضاً
+      if (governorate === "القاهرة" || governorate === "الجيزة") {
+        shippingCost = 80;
+        shippingLabel = "80 جنيه";
       } else {
-        if (governorate === "القاهرة" || governorate === "الجيزة") {
-          shippingCost = 80;
-          shippingLabel = "80 جنيه";
-        } else {
-          shippingCost = 120;
-          shippingLabel = "120 جنيه";
-        }
+        shippingCost = 120;
+        shippingLabel = "120 جنيه";
       }
 
       var printingCost = 0;
@@ -488,7 +503,7 @@
   }
 
 })();
-// التأكد من تحميل كل عناصر الصفحة أولاً لمنع الـ null والرفع لأعلى
+
 document.addEventListener("DOMContentLoaded", function() {
   
   var policyModal = document.getElementById("policyModal");
@@ -497,13 +512,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var closePolicyBottomBtn = document.getElementById("closePolicyBottomBtn");
 
   if (openPolicyBtn && policyModal) {
-    // تشغيل دالة الفتح عند الضغط
     openPolicyBtn.addEventListener("click", function(e) {
-      e.preventDefault(); // منع المتصفح من رفع الصفحة لفوق
+      e.preventDefault(); 
       policyModal.style.display = "flex";
     });
 
-    // دالة الإغلاق
     function closePolicy(e) {
       if (e) e.preventDefault();
       policyModal.style.display = "none";
@@ -512,7 +525,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closePolicyBtn) closePolicyBtn.addEventListener("click", closePolicy);
     if (closePolicyBottomBtn) closePolicyBottomBtn.addEventListener("click", closePolicy);
 
-    // إغلاق عند الضغط خارج المربع الأسود
     window.addEventListener("click", function(e) {
       if (e.target == policyModal) {
         closePolicy();
