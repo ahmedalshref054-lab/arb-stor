@@ -3,12 +3,6 @@
 
   var WHATSAPP_NUMBER = "201069086119";
 
-  var PACKAGES = {
-    "1": { label: "القميص الملكي المنفرد", price: 600, items: "تيشرت واحد فريد من اختيار العميل" },
-    "2": { label: "عروض الأكثر من قطعة", price: 790, items: "طقم مخصص (عدد القطع حسب اختيار العميل)" },
-    "3": { label: "باقة الأشبال 🦁", price: 750, items: "طقم أطفال كامل (التيشرت الأحمر + الشورت الأبيض)" }
-  };
-
   /* قائمة الموبايل */
   var burgerBtn = document.getElementById("burgerBtn");
   var navLinks  = document.getElementById("navLinks");
@@ -138,169 +132,177 @@
     window.addEventListener('resize', updateRealSlider);
   }
 
-
-  /* ميزة خيار الطباعة التفاعلي */
-  var enablePrinting = document.getElementById("enablePrinting");
-  var printingTextFieldWrap = document.getElementById("printingTextFieldWrap");
-  var printingTextInput = document.getElementById("printingText");
+  /* ميزة خيارات الطباعة التفاعلية والمنفصلة كبار/أطفال */
+  var printRoyalCheck = document.getElementById("printRoyalCheck");
+  var printRoyalFields = document.getElementById("printRoyalFields");
+  var printKidsCheck = document.getElementById("printKidsCheck");
+  var printKidsFields = document.getElementById("printKidsFields");
   var invPrintingRow = document.getElementById("invPrintingRow");
 
-  if (enablePrinting && printingTextFieldWrap) {
-    enablePrinting.addEventListener("change", function() {
-      if (this.checked) {
-        printingTextFieldWrap.style.display = "block";
-        if (invPrintingRow) invPrintingRow.style.display = "flex";
-      } else {
-        printingTextFieldWrap.style.display = "none";
-        if (invPrintingRow) invPrintingRow.style.display = "none";
-        if (printingTextInput) printingTextInput.value = "";
+  if (printRoyalCheck && printRoyalFields) {
+    printRoyalCheck.addEventListener("change", function() {
+      printRoyalFields.style.display = this.checked ? "block" : "none";
+      if (!this.checked) {
+        var royalText = document.getElementById("printRoyalText");
+        if (royalText) royalText.value = "";
       }
       updateInvoice();
     });
   }
 
-
-  /* أزرار الشراء الفوري وتحديث الراديو بالفورم */
-  document.querySelectorAll("[data-select-package]").forEach(function(btn){
-    btn.addEventListener("click", function(e){
-      var pkg = btn.getAttribute("data-select-package");
-      var radio = document.getElementById("pkgOption" + pkg);
-      if (radio) {
-        radio.checked = true;
-        radio.dispatchEvent(new Event("change"));
-      }
-      
-      // مزامنة تلقائية للمقاسات حسب الباقة
-      var sizeSrc = document.getElementById("sizeSelectPkg" + pkg);
-      var sizeDst = document.getElementById("checkoutSize");
-      if (sizeSrc && sizeDst) { 
-        // تحديث قائمة السحب في الفورم بالخيار المناسب لباقة الأطفال أو الكبار
-        updateCheckoutSizeOptions(pkg);
-        sizeDst.value = sizeSrc.value; 
+  if (printKidsCheck && printKidsFields) {
+    printKidsCheck.addEventListener("change", function() {
+      printKidsFields.style.display = this.checked ? "block" : "none";
+      if (!this.checked) {
+        var kidsText = document.getElementById("printKidsText");
+        if (kidsText) kidsText.value = "";
       }
       updateInvoice();
     });
-  });
-
-  // دالة لتغيير خيارات حقل المقاسات ديناميكياً إذا تم اختيار باقة الأطفال
-  function updateCheckoutSizeOptions(pkgKey) {
-    var sizeDst = document.getElementById("checkoutSize");
-    if (!sizeDst) return;
-    sizeDst.innerHTML = "";
-    
-    if (pkgKey === "3") {
-      sizeDst.innerHTML = `
-        <option value="8-9">مناسب من سن 8 إلى 9 سنوات</option>
-        <option value="10-11">مناسب من سن 10 إلى 11 سنة</option>
-        <option value="12">مناسب لسن 12 سنة</option>
-      `;
-    } else {
-      sizeDst.innerHTML = `
-        <option value="S">S — مناسب حتى 55 كيلو</option>
-        <option value="M">M — مناسب حتى 70 كيلو</option>
-        <option value="L">L — مناسب من 70 إلى 80 كيلو</option>
-        <option value="XL">XL — مناسب من 80 إلى 90 كيلو</option>
-        <option value="2XL">2XL — مناسب من 90 إلى 105 كيلو</option>
-      `;
-    }
   }
 
-  // الاستماع لتغيير الراديو يدوياً من داخل الفورم نفسه
-  document.querySelectorAll('input[name="package"]').forEach(function(radio) {
-    radio.addEventListener("change", function() {
-      updateCheckoutSizeOptions(this.value);
-      updateInvoice();
-    });
-  });
-
-
-  /* تحديد عناصر الفاتورة الديناميكية */
-  var invPkgLabel   = document.getElementById("invPkgLabel");
-  var invPkgPrice   = document.getElementById("invPkgPrice");
-  var invSize       = document.getElementById("invSize");
-  var invShipping   = document.getElementById("invShipping");
-  var invDiscountRow= document.getElementById("invDiscountRow");
-  var invDiscount   = document.getElementById("invDiscount");
-  var invTotal      = document.getElementById("invTotal");
-
-  var checkoutSizeSelect = document.getElementById("checkoutSize");
-  var governorateSelect  = document.getElementById("governorate");
-  var quantityInput      = document.getElementById('quantity') || document.querySelector('.product-quantity');
-
-  /* تفعيل أزرار الـ + والـ - للتحكم في الكمية */
-  var minusBtn = document.querySelector(".quantity-btn.minus") || document.getElementById("minusBtn");
-  var plusBtn = document.querySelector(".quantity-btn.plus") || document.getElementById("plusBtn");
-
-  if (quantityInput) {
-    if (minusBtn) {
-      minusBtn.addEventListener("click", function() {
-        var currentVal = parseInt(quantityInput.value) || 1;
-        if (currentVal > 1) {
-          quantityInput.value = currentVal - 1;
-          quantityInput.dispatchEvent(new Event("change"));
+  /* التحكم في إظهار حقول كميات المقاسات المصغرة بناءً على الـ Checkbox */
+  var sizeChecks = document.querySelectorAll(".size-multi-check");
+  sizeChecks.forEach(function(chk) {
+    chk.addEventListener("change", function() {
+      var miniQtyBox = this.parentElement.nextElementSibling;
+      if (miniQtyBox) {
+        if (this.checked) {
+          miniQtyBox.style.display = "flex";
+        } else {
+          miniQtyBox.style.display = "none";
+          var inputVal = miniQtyBox.querySelector(".mini-val");
+          if (inputVal) inputVal.value = 1; 
         }
-      });
-    }
+      }
+      updateInvoice();
+    });
+  });
 
-    if (plusBtn) {
-      plusBtn.addEventListener("click", function() {
-        var currentVal = parseInt(quantityInput.value) || 1;
-        quantityInput.value = currentVal + 1;
-        quantityInput.dispatchEvent(new Event("change"));
-      });
-    }
-  }
+  /* تفعيل أزرار الـ + والـ - بداخل حقول المقاسات الفرعية */
+  document.querySelectorAll(".mini-plus").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var input = this.parentElement.querySelector(".mini-val");
+      if (input) {
+        var val = parseInt(input.value) || 0;
+        if (val < 10) { 
+          input.value = val + 1;
+          updateInvoice();
+        }
+      }
+    });
+  });
 
-  function getSelectedPackageKey(){
-    var checked = document.querySelector('input[name="package"]:checked');
-    return checked ? checked.value : "1";
-  }
+  document.querySelectorAll(".mini-minus").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var input = this.parentElement.querySelector(".mini-val");
+      if (input) {
+        var val = parseInt(input.value) || 0;
+        if (val > 1) {
+          input.value = val - 1;
+          updateInvoice();
+        }
+      }
+    });
+  });
+
+  /* تحديد عناصر الفاتورة الديناميكية والمحافظات */
+  var invPkgLabel    = document.getElementById("invPkgLabel");
+  var invPkgPrice    = document.getElementById("invPkgPrice");
+  var invSize        = document.getElementById("invSize");
+  var invShipping    = document.getElementById("invShipping");
+  var invDiscountRow = document.getElementById("invDiscountRow");
+  var invDiscount    = document.getElementById("invDiscount");
+  var invTotal       = document.getElementById("invTotal");
+  var governorateSelect = document.getElementById("governorate");
 
   function updateInvoice(){
-    var key = getSelectedPackageKey();
-    var pkg = PACKAGES[key];
+    var quantityRoyal = 0;
+    var quantityKids = 0;
+    var displaySizes = [];
 
-    var quantity = parseInt(quantityInput.value);
-    if (isNaN(quantity) || quantity < 1) { quantity = 1; }
-
-    // حساب قيمة المنتجات بناءً على معادلات الخصم
-    var productsPrice = 0;
-    var savedDiscount = 0;
-
-    if (key === "2") {
-      if (quantity === 1) {
-        productsPrice = 600; 
-        savedDiscount = 0;
-      } else if (quantity === 2) {
-        productsPrice = 1100; 
-        savedDiscount = 100;
-      } else if (quantity === 3) {
-        productsPrice = 1500; 
-        savedDiscount = 300;
-      } else {
-        productsPrice = 1500 + ((quantity - 3) * 500);
-        savedDiscount = (quantity * 600) - productsPrice;
+    // 1. حساب تجميعة كميات ومقاسات باقة الكبار الملكية
+    document.querySelectorAll(".mini-val[data-type='royal']").forEach(function(input) {
+      var chk = input.parentElement.parentElement.querySelector(".size-multi-check");
+      if (chk && chk.checked) {
+        var qty = parseInt(input.value) || 0;
+        quantityRoyal += qty;
+        displaySizes.push("كبار (" + chk.getAttribute("data-size") + " × " + qty + ")");
       }
-    } else if (key === "3") {
-      if (quantity === 1) {
-        productsPrice = 750;
-        savedDiscount = 0;
-      } else if (quantity === 2) {
-        productsPrice = 1400; 
-        savedDiscount = 100;
-      } else {
-        if (quantity === 3) {
-          productsPrice = 2050;
-        } else {
-          productsPrice = 2050 + ((quantity - 3) * 650); 
-        }
-        savedDiscount = (quantity * 750) - productsPrice; 
+    });
+
+    var cardQtyPkg2 = document.getElementById("cardQtyPkg2");
+    if (cardQtyPkg2) cardQtyPkg2.value = quantityRoyal;
+
+    var invRoyalQtyEl = document.getElementById("invRoyalQty");
+    if (invRoyalQtyEl) invRoyalQtyEl.textContent = quantityRoyal + " قطعة";
+
+    // 2. حساب تجميعة كميات وأعمار باقة الأطفال (الأشبال)
+    document.querySelectorAll(".mini-val[data-type='kids']").forEach(function(input) {
+      var chk = input.parentElement.parentElement.querySelector(".size-multi-check");
+      if (chk && chk.checked) {
+        var qty = parseInt(input.value) || 0;
+        quantityKids += qty;
+        displaySizes.push("صغار (سن " + chk.getAttribute("data-size") + " × " + qty + ")");
       }
-    } else {
-      productsPrice = pkg.price * quantity;
+    });
+
+    var cardQtyPkg3 = document.getElementById("cardQtyPkg3");
+    if (cardQtyPkg3) cardQtyPkg3.value = quantityKids;
+
+    var invKidsQtyEl = document.getElementById("invKidsQty");
+    if (invKidsQtyEl) invKidsQtyEl.textContent = quantityKids + " طقم";
+
+    // 3. تحديث خانة المقاسات بالفاتورة الجانبية
+    if (invSize) {
+      if (displaySizes.length > 0) {
+        invSize.textContent = displaySizes.join(" | ");
+      } else {
+        invSize.textContent = "لم يتم تحديد كمية";
+      }
     }
 
-    // حساب تكلفة الشحن جغرافياً (دائماً تظهر الحسبة دون أي استثناء شحن مجاني)
+    // 4. حساب قيمة منتجات باقة الكبار مع الخصومات الأصلية
+    var priceRoyalProducts = 0;
+    var discountRoyal = 0;
+    var originalRoyalPrice = quantityRoyal * 600;
+
+    if (quantityRoyal === 1) {
+      priceRoyalProducts = 600;
+    } else if (quantityRoyal === 2) {
+      priceRoyalProducts = 1100;
+      discountRoyal = 100; 
+    } else if (quantityRoyal === 3) {
+      priceRoyalProducts = 1500;
+      discountRoyal = 300; 
+    } else if (quantityRoyal > 3) {
+      priceRoyalProducts = 1500 + ((quantityRoyal - 3) * 500);
+      discountRoyal = originalRoyalPrice - priceRoyalProducts;
+    }
+
+    // 5. حساب قيمة منتجات باقة الأطفال مع الخصومات الأصلية
+    var priceKidsProducts = 0;
+    var discountKids = 0;
+    var originalKidsPrice = quantityKids * 750;
+
+    if (quantityKids === 1) {
+      priceKidsProducts = 750;
+    } else if (quantityKids === 2) {
+      priceKidsProducts = 1400;
+      discountKids = 100; 
+    } else if (quantityKids === 3) {
+      priceKidsProducts = 2050;
+      discountKids = 200; 
+    } else if (quantityKids > 3) {
+      priceKidsProducts = 2050 + ((quantityKids - 3) * 650);
+      discountKids = originalKidsPrice - priceKidsProducts;
+    }
+
+    var totalProductsPrice = priceRoyalProducts + priceKidsProducts;
+    var totalSavedDiscount = discountRoyal + discountKids;
+    var totalOriginalPrice = originalRoyalPrice + originalKidsPrice;
+
+    // 6. حساب تكلفة التوصيل (قاهرة وجيزة 80 / أي مكان تاني 120)
     var shippingCost = 0;
     var govValue = governorateSelect ? governorateSelect.value : "";
 
@@ -316,44 +318,49 @@
       }
     }
 
-    // إضافة تكلفة خدمة الطباعة إذا تم تفعيلها
+    // 7. حساب خدمة طباعة الأسماء
     var printingCost = 0;
-    if (enablePrinting && enablePrinting.checked) {
-      printingCost = 200;
+    if (printRoyalCheck && printRoyalCheck.checked && quantityRoyal > 0) printingCost += (200 * quantityRoyal);
+    if (printKidsCheck && printKidsCheck.checked && quantityKids > 0) printingCost += (200 * quantityKids);
+
+    if (invPrintingRow) {
+      var invPrintingPrice = document.getElementById("invPrintingPrice");
+      if (printingCost > 0) {
+        invPrintingRow.style.display = "flex";
+        if (invPrintingPrice) invPrintingPrice.textContent = "+ " + printingCost + " جنيه";
+      } else {
+        invPrintingRow.style.display = "none";
+      }
     }
 
-    // حساب الإجمالي النهائي التام
-    var totalFinal = productsPrice + shippingCost + printingCost;
+    // 8. الأرقام النهائية وحقن كلمة "بدلاً من" في الفاتورة في حالة وجود خصم فعلي
+    var totalFinal = totalProductsPrice + shippingCost + printingCost;
 
-    // تحديث البيانات على واجهة الشاشة والفاتورة الجانبية
-    if (invPkgLabel) invPkgLabel.textContent = pkg.label + " (عدد: " + quantity + ")";
-    if (invPkgPrice) invPkgPrice.textContent = productsPrice + " جنيه";
-    if (invSize && checkoutSizeSelect) invSize.textContent = checkoutSizeSelect.value;
+    if (invPkgLabel) invPkgLabel.textContent = "إجمالي الباقات المطلوبة";
+    
+    if (invPkgPrice) {
+      if (totalSavedDiscount > 0) {
+        invPkgPrice.textContent = totalProductsPrice + " جنيه بدلاً من " + totalOriginalPrice + " جنيه";
+      } else {
+        invPkgPrice.textContent = totalProductsPrice + " جنيه";
+      }
+    }
 
-    if (savedDiscount > 0) {
+    if (totalSavedDiscount > 0) {
       if (invDiscountRow) invDiscountRow.style.display = "flex";
-      if (invDiscount) invDiscount.textContent = "– " + savedDiscount + " جنيه";
+      if (invDiscount) invDiscount.textContent = "– " + totalSavedDiscount + " جنيه";
     } else {
       if (invDiscountRow) invDiscountRow.style.display = "none";
     }
 
-    if (invTotal) invTotal.textContent = totalFinal + " جنيه";
+    if (invTotal) invTotal.textContent = (quantityRoyal + quantityKids > 0) ? (totalFinal + " جنيه") : "0 جنيه";
     
     var totalValSpan = document.querySelector('.total-val');
-    if (totalValSpan) totalValSpan.textContent = productsPrice; 
+    if (totalValSpan) totalValSpan.textContent = totalProductsPrice; 
   }
 
-  // ربط أحداث الاستماع للتحديث اللحظي بالفاتورة
-  if (checkoutSizeSelect) checkoutSizeSelect.addEventListener("change", updateInvoice);
   if (governorateSelect) governorateSelect.addEventListener("change", updateInvoice);
-  
-  if (quantityInput) {
-    quantityInput.addEventListener("input", updateInvoice);
-    quantityInput.addEventListener("change", updateInvoice);
-  }
-
   updateInvoice();
-
 
   /* معالجة وإرسال نص الفاتورة الديناميكية للواتساب */
   var orderForm = document.getElementById("orderForm");
@@ -372,15 +379,6 @@
     var lines = [];
     lines.push("🇪🇬 *طلب جديد — متجر العرب* 🇪🇬");
     lines.push("");
-    lines.push("📦 *الباقة المختارة:* " + data.packageLabel);
-    lines.push("🔢 *الكمية المطلوبة:* " + data.quantity);
-    lines.push("📐 *المقاس / السن المطلوب:* " + data.size);
-    
-    if (data.printingText) {
-      lines.push("🔥 *المطلوب طباعته:* " + data.printingText);
-    }
-    
-    lines.push("");
     lines.push("👤 *بيانات العميل المستلم*");
     lines.push("• الاسم بالكامل: " + data.name);
     lines.push("• رقم الهاتف الأساسي: " + data.primaryMobile);
@@ -388,8 +386,25 @@
     lines.push("• المحافظة: " + data.governorate);
     lines.push("• العنوان بالتفصيل: " + data.address);
     lines.push("");
+    lines.push("📦 *تفاصيل المقاسات والأعمار المحددة:*");
+    lines.push("• [ " + data.sizesText + " ]");
+    
+    if (data.qtyRoyal > 0 && data.isPrintRoyal) {
+      lines.push("✍️ طباعة طقم الكبار: " + data.printRoyalLabel);
+    }
+    if (data.qtyKids > 0 && data.isPrintKids) {
+      lines.push("✍️ طباعة طقم الأطفال: " + data.printKidsLabel);
+    }
+    
+    lines.push("");
     lines.push("💰 *ملخص الحساب والدفع عند الاستلام*");
-    lines.push("• قيمة المنتجات: " + data.subtotal + " جنيه");
+    
+    if (data.discount > 0) {
+      lines.push("• قيمة المنتجات: " + data.subtotal + " جنيه بدلاً من " + data.originalPrice + " جنيه");
+    } else {
+      lines.push("• قيمة المنتجات: " + data.subtotal + " جنيه");
+    }
+
     if (data.printingCost > 0) {
       lines.push("• تكلفة خدمة الطباعة: +" + data.printingCost + " جنيه");
     }
@@ -413,76 +428,104 @@
       var altMobile    = document.getElementById("altMobile").value.trim();
       var governorate  = document.getElementById("governorate").value;
       var address      = document.getElementById("address").value.trim();
-      var size         = checkoutSizeSelect ? checkoutSizeSelect.value : "";
-      var pkgKey       = getSelectedPackageKey();
-      var pkg          = PACKAGES[pkgKey];
 
-      var quantity = parseInt(quantityInput.value);
-      if (isNaN(quantity) || quantity < 1) { quantity = 1; }
+      var quantityRoyal = 0;
+      var quantityKids = 0;
+      var displaySizes = [];
+
+      document.querySelectorAll(".mini-val[data-type='royal']").forEach(function(input) {
+        var chk = input.parentElement.parentElement.querySelector(".size-multi-check");
+        if (chk && chk.checked) {
+          var qty = parseInt(input.value) || 0;
+          quantityRoyal += qty;
+          displaySizes.push("كبار (" + chk.getAttribute("data-size") + " × " + qty + ")");
+        }
+      });
+
+      document.querySelectorAll(".mini-val[data-type='kids']").forEach(function(input) {
+        var chk = input.parentElement.parentElement.querySelector(".size-multi-check");
+        if (chk && chk.checked) {
+          var qty = parseInt(input.value) || 0;
+          quantityKids += qty;
+          displaySizes.push("صغار (سن " + chk.getAttribute("data-size") + " × " + qty + ")");
+        }
+      });
+
+      if (quantityRoyal === 0 && quantityKids === 0) {
+        showToast("عفواً، يرجى اختيار مقاس وكمية قطعة واحدة على الأقل لإتمام طلبك.");
+        return;
+      }
 
       if (!fullName || !primaryMobile || !altMobile || !governorate || !address) {
         showToast("يرجى ملء جميع الحقول المطلوبة أولاً.");
         return;
       }
 
-      var productsPrice = 0;
-      var savedDiscount = 0;
-      if (pkgKey === "2") {
-        if (quantity === 1) productsPrice = 600;
-        else if (quantity === 2) { productsPrice = 1100; savedDiscount = 100; }
-        else if (quantity === 3) { productsPrice = 1500; savedDiscount = 300; }
-        else {
-          productsPrice = 1500 + ((quantity - 3) * 500);
-          savedDiscount = (quantity * 600) - productsPrice;
-        }
-      } else if (pkgKey === "3") {
-        if (quantity === 1) { 
-          productsPrice = 750; 
-          savedDiscount = 0; 
-        } else if (quantity === 2) { 
-          productsPrice = 1400; 
-          savedDiscount = 100; 
-        } else if (quantity === 3) {
-          productsPrice = 2050;
-          savedDiscount = 200;
-        } else { 
-          productsPrice = 2050 + ((quantity - 3) * 650); 
-          savedDiscount = (quantity * 750) - productsPrice; 
-        }
-      } else {
-        productsPrice = pkg.price * quantity;
+      var priceRoyalProducts = 0;
+      var discountRoyal = 0;
+      var originalRoyalPrice = quantityRoyal * 600;
+
+      if (quantityRoyal === 1) priceRoyalProducts = 600;
+      else if (quantityRoyal === 2) { priceRoyalProducts = 1100; discountRoyal = 100; }
+      else if (quantityRoyal === 3) { priceRoyalProducts = 1500; discountRoyal = 300; }
+      else if (quantityRoyal > 3) {
+        priceRoyalProducts = 1500 + ((quantityRoyal - 3) * 500);
+        discountRoyal = originalRoyalPrice - priceRoyalProducts;
       }
 
+      var priceKidsProducts = 0;
+      var discountKids = 0;
+      var originalKidsPrice = quantityKids * 750;
+
+      if (quantityKids === 1) priceKidsProducts = 750;
+      else if (quantityKids === 2) { priceKidsProducts = 1400; discountKids = 100; }
+      else if (quantityKids === 3) { priceKidsProducts = 2050; discountKids = 200; }
+      else if (quantityKids > 3) {
+        priceKidsProducts = 2050 + ((quantityKids - 3) * 650);
+        discountKids = originalKidsPrice - priceKidsProducts;
+      }
+
+      var productsPrice = priceRoyalProducts + priceKidsProducts;
+      var savedDiscount = discountRoyal + discountKids;
+      var totalOriginalPrice = originalRoyalPrice + originalKidsPrice;
+
       var shippingCost = 0;
-      var shippingLabel = "";
-      
-      // الشحن يحسب بالكامل وبدون استثناءات لرسالة الواتساب أيضاً
       if (governorate === "القاهرة" || governorate === "الجيزة") {
         shippingCost = 80;
-        shippingLabel = "80 جنيه";
       } else {
         shippingCost = 120;
-        shippingLabel = "120 جنيه";
       }
 
       var printingCost = 0;
-      var printingTextValue = "";
-      if (enablePrinting && enablePrinting.checked) {
-        printingCost = 200;
-        printingTextValue = printingTextInput ? printingTextInput.value.trim() : "";
-        if (!printingTextValue) {
-          printingTextValue = "تم تفعيل خدمة الطباعة (سيتم تأكيد الاسم والرقم مع الدعم)";
-        }
+      var printRoyalLabel = "❌ غير مفعلة";
+      var isPrintRoyal = false;
+      if (printRoyalCheck && printRoyalCheck.checked && quantityRoyal > 0) {
+        isPrintRoyal = true;
+        printingCost += (200 * quantityRoyal);
+        var rText = document.getElementById("printRoyalText") ? document.getElementById("printRoyalText").value.trim() : "";
+        printRoyalLabel = "✅ نعم، الاسم والرقم: (" + (rText ? rText : "سيتم تأكيده مع الدعم") + ")";
+      }
+
+      var printKidsLabel = "❌ غير مفعلة";
+      var isPrintKids = false;
+      if (printKidsCheck && printKidsCheck.checked && quantityKids > 0) {
+        isPrintKids = true;
+        printingCost += (200 * quantityKids);
+        var kText = document.getElementById("printKidsText") ? document.getElementById("printKidsText").value.trim() : "";
+        printKidsLabel = "✅ نعم، الاسم والرقم: (" + (kText ? kText : "سيتم تأكيده مع الدعم") + ")";
       }
 
       var totalFinal = productsPrice + shippingCost + printingCost;
+      var sizesText = displaySizes.join(" | ");
 
       var message = buildWhatsAppMessage({
-        packageLabel: pkg.label,
-        quantity: quantity,
-        packageItems: pkg.items,
-        size: size,
-        printingText: printingTextValue,
+        qtyRoyal: quantityRoyal,
+        qtyKids: quantityKids,
+        sizesText: sizesText,
+        isPrintRoyal: isPrintRoyal,
+        isPrintKids: isPrintKids,
+        printRoyalLabel: printRoyalLabel,
+        printKidsLabel: printKidsLabel,
         printingCost: printingCost,
         name: fullName,
         primaryMobile: primaryMobile,
@@ -490,7 +533,8 @@
         governorate: governorate,
         address: address,
         subtotal: productsPrice,
-        shippingLabel: shippingLabel,
+        originalPrice: totalOriginalPrice,
+        shippingLabel: shippingCost + " جنيه",
         discount: savedDiscount,
         total: totalFinal
       });
@@ -505,7 +549,6 @@
 })();
 
 document.addEventListener("DOMContentLoaded", function() {
-  
   var policyModal = document.getElementById("policyModal");
   var openPolicyBtn = document.getElementById("openPolicyBtn");
   var closePolicyBtn = document.getElementById("closePolicyBtn");
@@ -530,8 +573,5 @@ document.addEventListener("DOMContentLoaded", function() {
         closePolicy();
       }
     });
-  } else {
-    console.log("تنبيه: لم يتم العثور على زر السياسة أو النافذة المنبثقة في الـ HTML");
   }
-  
 });
