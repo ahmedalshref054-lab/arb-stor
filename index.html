@@ -1,348 +1,354 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>متجر العرب — طلب سريع</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>متجر العرب — طلب سريع</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background-color: #ffffff; border-bottom: 1px solid #eeeeee; box-shadow: 0 2px 10px rgba(0,0,0,0.08); direction: rtl; position: sticky; top: 0; z-index: 99999;">
-    
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background-color: #ffffff; border-bottom: 1px solid #eeeeee; box-shadow: 0 2px 10px rgba(0,0,0,0.08); direction: rtl; position: sticky; top: 0; z-index: 99999;">
     <div style="font-weight: bold; font-size: 1.1rem; color: #333333; flex: 1; text-align: right;">
       متجر <span style="color: var(--accent-gold, #b89343);">عرب استور</span>
     </div>
-
     <div style="flex: 1; text-align: center; display: flex; justify-content: center; align-items: center;">
       <img src="logo.jpg" alt="لوجو عرب استور" style="max-width: 65px; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
     </div>
-
     <div style="flex: 1; text-align: left;">
       <a href="#orderForm" style="display: inline-block; background-color: #e74c3c; color: #ffffff; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-size: 0.95rem; font-weight: bold; box-shadow: 0 3px 6px rgba(231,76,60,0.3); transition: transform 0.2s;">
         اطلب الآن 👇
       </a>
     </div>
-
   </nav>
 
-<header class="hero" id="home">
-  <div class="wrap" style="text-align: center;">
-    <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 10px;">تيشرت منتخب مصر الفرعوني 🇪🇬</h1>
-    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 5px;">خامة جاكار مستوردة أصلية ملكية - معاينة وغسيل قبل الاستلام ودفع كاش</p>
-  </div>
-</header>
+  <header class="hero" id="home">
+    <div class="wrap" style="text-align: center;">
+      <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 10px;">تيشرت منتخب مصر الفرعوني 🇪🇬</h1>
+      <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 5px;">خامة جاكار مستوردة أصلية ملكية - معاينة وغسيل قبل الاستلام ودفع كاش</p>
+    </div>
+  </header>
 
-<section class="checkout" id="order-section" style="padding: 10px 0;">
-  <div class="wrap">
-    
-    <div class="checkout-shell">
+  <section class="checkout" id="order-section" style="padding: 10px 0;">
+    <div class="wrap">
       
-      <form id="orderForm" class="checkout-form" autocomplete="on">
+      <!-- بداية الشيل الرئيسي الشامل بتنسيق الفليكس -->
+      <div class="checkout-shell" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; direction: rtl;">
         
-        <input type="hidden" id="cardQtyPkg2" value="0">
-        <input type="hidden" id="cardQtyPkg3" value="0">
-        <input type="hidden" id="invPkgLabel" value="إجمالي الباقات">
-        <span id="invPkgPrice" style="display:none;">0</span>
-        <span class="total-val" style="display:none;">0</span>
-
-        <div class="product-selection-card">
-          <h2 class="card-title">👕 أولاً: مقاسات الكبار (التيشرت فقط)</h2>
+        <!-- بداية الفورم الشامل الموحد -->
+        <form id="orderForm" class="checkout-form" autocomplete="on" style="flex: 1; min-width: 300px; margin: 0; padding: 0;">
           
-          <div class="slider-container" style="margin-bottom: 15px;">
-            <div class="slider-wrapper" id="royalSlider">
-              <img src="22.jpg" alt="تيشرت كبار 1" class="slider-img active">
-              <img src="2.jpg" alt="تيشرت كبار 3" class="slider-img">
-              <img src="3.webp" alt="تيشرت كبار 4" class="slider-img">
-              <img src="4.webp" alt="تيشرت كبار 5" class="slider-img">
-              <img src="1.webp" alt="تيشرت كبار 6" class="slider-img">
-            </div>
-            <button type="button" class="slider-btn prev-btn" onclick="moveSlider('royalSlider', -1)">&#10094;</button>
-            <button type="button" class="slider-btn next-btn" onclick="moveSlider('royalSlider', 1)">&#10095;</button>
-          </div>
+          <input type="hidden" id="cardQtyPkg2" value="0">
+          <input type="hidden" id="cardQtyPkg3" value="0">
+          <input type="hidden" id="invPkgLabel" value="إجمالي الباقات">
+          <span id="invPkgPrice" style="display:none;">0</span>
+          <span class="total-val" style="display:none;">0</span>
 
-          <div class="discount-alert-box">
-            🔥 1 قطعة بـ <b>600 ج</b> | قطعتين بـ <b>1100 ج</b> | 3 قطع بـ <b>1500 ج</b>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="S"> مقاس S (وزن حتى 55 كيلو)</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="royal" data-size="S" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-          
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="M"> مقاس M (وزن 55 لـ 70 كيلو)</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="royal" data-size="M" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="L"> مقاس L (وزن 70 لـ 80 كيلو)</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="royal" data-size="L" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="XL"> مقاس XL (وزن 80 لـ 90 كيلو)</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="royal" data-size="XL" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="2XL"> مقاس 2XL (وزن 90 لـ 105 كيلو)</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="royal" data-size="2XL" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="print-box">
-            <label><input type="checkbox" id="printRoyalCheck"> عوز تكتب اسم ورقم على تيشرت الكبار؟ (+200 ج)</label>
-            <div id="printRoyalFields" style="display:none;">
-              <input type="text" id="printRoyalText" placeholder="اكتب الاسم والرقم هنا (مثال: صلاح 10)" style="width:100%; margin-top:8px;">
-            </div>
-          </div>
-        </div>
-
-        <div class="product-selection-card">
-          <h2 class="card-title">🦁 ثانياً: أطقم الأطفال (تيشرت + شورت)</h2>
-          
-          <div style="text-align: center; margin-bottom: 15px;">
-            <img src="kids.jpg" alt="طقم أطفال فرعوني" style="width: 100%; max-width: 300px; border-radius: 8px; border: 1px solid var(--border-color);">
-          </div>
-
-          <div class="discount-alert-box">
-            🔥 1 طقم بـ <b>750 ج</b> | قطعتين بـ <b>1400 ج</b> | 3 قطع بـ <b>2050 ج</b>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 8 لـ 10 سنوات"> سن من 8 لـ 10 سنوات</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="kids" data-size="من 8 لـ 10 سنوات" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 10 لـ 12 سنة"> سن من 10 لـ 12 سنة</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="kids" data-size="من 10 لـ 12 سنة" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 12 لـ 14 سنة"> سن من 12 لـ 14 سنة</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="kids" data-size="من 12 لـ 14 سنة" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="size-row">
-            <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 14 لـ 16 سنة"> سن من 14 لـ 16 سنة</label>
-            <div class="mini-qty-controls" style="display:none;">
-              <button type="button" class="mini-btn minus mini-minus">-</button>
-              <input type="number" class="mini-val" data-type="kids" data-size="من 14 لـ 16 سنة" value="1" min="1" readonly>
-              <button type="button" class="mini-btn plus mini-plus">+</button>
-            </div>
-          </div>
-
-          <div class="print-box">
-            <label><input type="checkbox" id="printKidsCheck"> عوز تكتب اسم ورقم على طقم الأطفال؟ (+200 ج)</label>
-            <div id="printKidsFields" style="display:none;">
-              <input type="text" id="printKidsText" placeholder="اكتب الاسم والرقم هنا (مثال: زيزو 10)" style="width:100%; margin-top:8px;">
-            </div>
-          </div>
-        </div>
-
-        <div class="product-selection-card order-form-card">
-          <h2 class="card-title">📋 عنوانك وموبايلك لشحن الطلب</h2>
-          <div class="modern-form">
-            <div class="form-grid">
-              
-              <div class="form-group">
-                <label for="fullName">الاسم ثلاثي أو ثنائي:</label>
-                <div class="input-wrapper">
-                  <span class="input-icon">👤</span>
-                  <input type="text" id="fullName" placeholder="اكتب اسمك هنا" required>
-                </div>
+          <!-- كارت مقاسات الكبار -->
+          <div class="product-selection-card">
+            <h2 class="card-title">👕 أولاً: مقاسات الكبار (التيشرت فقط)</h2>
+            
+            <div class="slider-container" style="margin-bottom: 15px;">
+              <div class="slider-wrapper" id="royalSlider">
+                <img src="22.jpg" alt="تيشرت كبار 1" class="slider-img active">
+                <img src="2.jpg" alt="تيشرت كبار 3" class="slider-img">
+                <img src="3.webp" alt="تيشرت كبار 4" class="slider-img">
+                <img src="4.webp" alt="تيشرت كبار 5" class="slider-img">
+                <img src="1.webp" alt="تيشرت كبار 6" class="slider-img">
               </div>
+              <button type="button" class="slider-btn prev-btn" onclick="moveSlider('royalSlider', -1)">&#10094;</button>
+              <button type="button" class="slider-btn next-btn" onclick="moveSlider('royalSlider', 1)">&#10095;</button>
+            </div>
 
-              <div class="form-group">
-                <label for="primaryMobile">رقم تليفونك (عليه واتساب):</label>
-                <div class="input-wrapper">
-                  <span class="input-icon">📱</span>
-                  <input type="tel" id="primaryMobile" placeholder="01XXXXXXXXX" required>
-                </div>
-              </div>
+            <div class="discount-alert-box">
+              🔥 1 قطعة بـ <b>600 ج</b> | قطعتين بـ <b>1100 ج</b> | 3 قطع بـ <b>1500 ج</b>
+            </div>
 
-              <div class="form-group">
-                <label for="altMobile">رقم تليفون تاني (إجباري للطوارئ):</label>
-                <div class="input-wrapper">
-                  <span class="input-icon">📞</span>
-                  <input type="tel" id="altMobile" placeholder="01XXXXXXXXX" required>
-                </div>
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="S"> مقاس S (وزن حتى 55 كيلو)</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="royal" data-size="S" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
               </div>
-
-              <div class="form-group">
-                <label for="governorate">المحافظة:</label>
-                <div class="input-wrapper">
-                  <span class="input-icon">📍</span>
-                  <select id="governorate" required>
-                    <option value="" disabled selected>اضغط هنا واختر محافظتك</option>
-                    <option value="القاهرة">القاهرة</option>
-                    <option value="الجيزة">الجيزة</option>
-                    <option value="الإسكندرية">الإسكندرية</option>
-                    <option value="القليوبية">القليوبية</option>
-                    <option value="الشرقية">الشرقية</option>
-                    <option value="الدقهلية">الدقهلية</option>
-                    <option value="الغربية">الغربية</option>
-                    <option value="المنوفية">المنوفية</option>
-                    <option value="البحيرة">البحيرة</option>
-                    <option value="كفر الشيخ">كفر الشيخ</option>
-                    <option value="دمياط">دمياط</option>
-                    <option value="بورسعيد">بورسعيد</option>
-                    <option value="الإسماعيلية">الإسماعيلية</option>
-                    <option value="السويس">السويس</option>
-                    <option value="الفيوم">الفيوم</option>
-                    <option value="بني سويف">بني سويف</option>
-                    <option value="المنيا">المنيا</option>
-                    <option value="أسيوط">أسيوط</option>
-                    <option value="سوهاج">سوهاج</option>
-                    <option value="قنا">قنا</option>
-                    <option value="الأقصر">الأقصر</option>
-                    <option value="أسوان">أسوان</option>
-                    <option value="مطروح">مطروح</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group full-width">
-                <label for="address">العنوان بالتفصيل (المركز / اسم الشارع):</label>
-                <div class="input-wrapper">
-                  <span class="input-icon" style="align-self: flex-start; margin-top: 12px;">🏠</span>
-                  <textarea id="address" placeholder="اكتب عنوانك بالتفصيل عشان المندوب يوصلك بسرعة" required></textarea>
-                </div>
-              </div>
-              
             </div>
             
-            <button type="submit" class="form-submit-btn modern-submit-btn">
-              <span class="btn-shine"></span>
-              Extra: 🟢 اضغط هنا لتأكيد الطلب عبر الواتساب
-            </button>
-          </div>
-        </div>
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="M"> مقاس M (وزن 55 لـ 70 كيلو)</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="royal" data-size="M" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
 
-      </form> <aside class="invoice">
-        <h3 style="margin-top: 0; font-size: 1.4rem; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px;">معاينة الفاتورة</h3>
-        
-        <div class="invoice-line">
-          <span>التيشرت الفردي (الكبار)</span>
-          <span id="invRoyalQty" style="font-weight: bold;">0 قطعة</span>
-        </div>
-        
-        <div class="invoice-line">
-          <span>طقم الأشبال (الأطفال)</span>
-          <span id="invKidsQty" style="font-weight: bold;">0 طقم</span>
-        </div>
-        
-        <div class="invoice-line" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-          <span style="color: var(--text-muted); font-size: 0.95rem;">المقاسات والأعمار المختارة لكل فئة:</span>
-          <span id="invSize" style="color: var(--accent-gold); font-weight: bold; padding-right: 5px;">لم يتم الاختيار</span>
-        </div>
-        
-        <div class="invoice-line" id="invPrintingRow">
-          <span>تكلفة خدمة الطباعة</span>
-          <span id="invPrintingPrice" style="font-weight: bold;">+ 0 جنيه</span>
-        </div>
-        
-        <div class="invoice-line">
-          <span>تكلفة الشحن والتوصيل</span>
-          <span id="invShipping" style="font-weight: bold;">0 جنيه</span>
-        </div>
-        
-        <div class="invoice-line" id="invDiscountRow" style="color: #2ecc71;">
-          <span>المبلغ الذي تم توفيره</span>
-          <span id="invDiscount" style="font-weight: bold;">0 جنيه</span>
-        </div>
-        
-        <div class="invoice-total-box" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border-color);">
-          <strong style="font-size: 1.1rem;">المبلغ الإجمالي عند الاستلام:</strong>
-          <div style="text-align: center; margin-top: 10px;">
-            <span id="invTotal" style="font-size: 2.2rem; font-weight: 900; color: var(--accent-gold);">0</span>
-            <span style="font-size: 1.2rem; display: block; margin-top: -5px;">جنيه</span>
-          </div>
-        </div>
-        <div class="invoice-shipping-info" style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-color); font-size: 0.95rem; line-height: 1.7; color: var(--text-muted);">
-          <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;">
-            <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
-            <span>الدفع نقدًا (كاش) للمندوب فقط عند الفحص والاستلام.</span>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;">
-            <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
-            <span>يتم تسليم الشحنة لشركة التوصيل خلال 24 ساعة من الطلب ويتم تسليمها للعميل خلال 48 ساعة.</span>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 8px;">
-            <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
-            <span>شحن وتغطية جغرافية شاملة لجميع محافظات جمهورية مصر العربية.</span>
-          </div>
-        </div>
-      </aside>
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="L"> مقاس L (وزن 70 لـ 80 كيلو)</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="royal" data-size="L" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
 
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="XL"> مقاس XL (وزن 80 لـ 90 كيلو)</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="royal" data-size="XL" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="royal" data-size="2XL"> مقاس 2XL (وزن 90 لـ 105 كيلو)</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="royal" data-size="2XL" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="print-box">
+              <label><input type="checkbox" id="printRoyalCheck"> عوز تكتب اسم ورقم على تيشرت الكبار؟ (+200 ج)</label>
+              <div id="printRoyalFields" style="display:none;">
+                <input type="text" id="printRoyalText" placeholder="اكتب الاسم والرقم هنا (مثال: صلاح 10)" style="width:100%; margin-top:8px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- كارت مقاسات الأطفال -->
+          <div class="product-selection-card">
+            <h2 class="card-title">🦁 ثانياً: أطقم الأطفال (تيشرت + شورت)</h2>
+            
+            <div style="text-align: center; margin-bottom: 15px;">
+              <img src="kids.jpg" alt="طقم أطفال فرعوني" style="width: 100%; max-width: 300px; border-radius: 8px; border: 1px solid var(--border-color);">
+            </div>
+
+            <div class="discount-alert-box">
+              🔥 1 طقم بـ <b>750 ج</b> | قطعتين بـ <b>1400 ج</b> | 3 قطع بـ <b>2050 ج</b>
+            </div>
+
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 8 لـ 10 سنوات"> سن من 8 لـ 10 سنوات</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="kids" data-size="من 8 لـ 10 سنوات" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 10 لـ 12 سنة"> سن من 10 لـ 12 سنة</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="kids" data-size="من 10 لـ 12 سنة" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 12 لـ 14 سنة"> سن من 12 لـ 14 سنة</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="kids" data-size="من 12 لـ 14 سنة" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="size-row">
+              <label><input type="checkbox" class="size-multi-check" data-type="kids" data-size="من 14 لـ 16 سنة"> سن من 14 لـ 16 سنة</label>
+              <div class="mini-qty-controls" style="display:none;">
+                <button type="button" class="mini-btn minus mini-minus">-</button>
+                <input type="number" class="mini-val" data-type="kids" data-size="من 14 لـ 16 سنة" value="1" min="1" readonly>
+                <button type="button" class="mini-btn plus mini-plus">+</button>
+              </div>
+            </div>
+
+            <div class="print-box">
+              <label><input type="checkbox" id="printKidsCheck"> عوز تكتب اسم ورقم على طقم الأطفال؟ (+200 ج)</label>
+              <div id="printKidsFields" style="display:none;">
+                <input type="text" id="printKidsText" placeholder="اكتب الاسم والرقم هنا (مثال: زيزو 10)" style="width:100%; margin-top:8px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- كارت بيانات الشحن وثبتنا جواه زرار الإرسال الموحد -->
+          <div class="product-selection-card order-form-card">
+            <h2 class="card-title">📋 عنوانك وموبايلك لشحن الطلب</h2>
+            <div class="modern-form">
+              <div class="form-grid">
+                
+                <div class="form-group">
+                  <label for="fullName">الاسم ثلاثي أو ثنائي:</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="fullName" placeholder="اكتب اسمك هنا" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="primaryMobile">رقم تليفونك (عليه واتساب):</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">📱</span>
+                    <input type="tel" id="primaryMobile" placeholder="01XXXXXXXXX" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="altMobile">رقم تليفون تاني (إجباري للطوارئ):</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">📞</span>
+                    <input type="tel" id="altMobile" placeholder="01XXXXXXXXX" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="governorate">المحافظة:</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">📍</span>
+                    <select id="governorate" required>
+                      <option value="" disabled selected>اضغط هنا واختر محافظتك</option>
+                      <option value="القاهرة">القاهرة</option>
+                      <option value="الجيزة">الجيزة</option>
+                      <option value="الإسكندرية">الإسكندرية</option>
+                      <option value="القليوبية">القليوبية</option>
+                      <option value="الشرقية">الشرقية</option>
+                      <option value="الدقهلية">الدقهلية</option>
+                      <option value="الغربية">الغربية</option>
+                      <option value="المنوفية">المنوفية</option>
+                      <option value="البحيرة">البحيرة</option>
+                      <option value="كفر الشيخ">كفر الشيخ</option>
+                      <option value="دمياط">دمياط</option>
+                      <option value="بورسعيد">بورسعيد</option>
+                      <option value="الإسماعيلية">الإسماعيلية</option>
+                      <option value="السويس">السويس</option>
+                      <option value="الفيوم">الفيوم</option>
+                      <option value="بني سويف">بني سويف</option>
+                      <option value="المنيا">المنيا</option>
+                      <option value="أسيوط">أسيوط</option>
+                      <option value="سوهاج">سوهاج</option>
+                      <option value="قنا">قنا</option>
+                      <option value="الأقصر">الأقصر</option>
+                      <option value="أسوان">أسوان</option>
+                      <option value="مطروح">مطروح</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="address">العنوان بالتفصيل (المركز / اسم الشارع):</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon" style="align-self: flex-start; margin-top: 12px;">🏠</span>
+                    <textarea id="address" placeholder="اكتب عنوانك بالتفصيل عشان المندوب يوصلك بسرعة" required></textarea>
+                  </div>
+                </div>
+                
+              </div>
+              
+              <button type="submit" class="form-submit-btn modern-submit-btn">
+                <span class="btn-shine"></span>
+                🟢 اضغط هنا لتأكيد الطلب عبر الواتساب
+              </button>
+            </div>
+          </div>
+
+        </form> <!-- القفلة الصحيحة للفورم الموحد هنا لتشمل جميع الحقول والزرار -->
+
+        <!-- قسم الفاتورة الجانبي (Aside) بداخل الـ shell ليعمل الـ flex sticky بشكل ممتاز -->
+        <aside class="invoice" style="flex: 0 0 350px; min-width: 300px; position: sticky; top: 80px;">
+          <h3 style="margin-top: 0; font-size: 1.4rem; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px;">معاينة الفاتورة</h3>
+          
+          <div class="invoice-line">
+            <span>التيشرت الفردي (الكبار)</span>
+            <span id="invRoyalQty" style="font-weight: bold;">0 قطعة</span>
+          </div>
+          
+          <div class="invoice-line">
+            <span>طقم الأشبال (الأطفال)</span>
+            <span id="invKidsQty" style="font-weight: bold;">0 طقم</span>
+          </div>
+          
+          <div class="invoice-line" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+            <span style="color: var(--text-muted); font-size: 0.95rem;">المقاسات والأعمار المختارة لكل فئة:</span>
+            <span id="invSize" style="color: var(--accent-gold); font-weight: bold; padding-right: 5px;">لم يتم الاختيار</span>
+          </div>
+          
+          <div class="invoice-line" id="invPrintingRow">
+            <span>تكلفة خدمة الطباعة</span>
+            <span id="invPrintingPrice" style="font-weight: bold;">+ 0 جنيه</span>
+          </div>
+          
+          <div class="invoice-line">
+            <span>تكلفة الشحن والتوصيل</span>
+            <span id="invShipping" style="font-weight: bold;">0 جنيه</span>
+          </div>
+          
+          <div class="invoice-line" id="invDiscountRow" style="color: #2ecc71;">
+            <span>المبلغ الذي تم توفيره</span>
+            <span id="invDiscount" style="font-weight: bold;">0 جنيه</span>
+          </div>
+          
+          <div class="invoice-total-box" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border-color);">
+            <strong style="font-size: 1.1rem;">المبلغ الإجمالي عند الاستلام:</strong>
+            <div style="text-align: center; margin-top: 10px;">
+              <span id="invTotal" style="font-size: 2.2rem; font-weight: 900; color: var(--accent-gold);">0</span>
+              <span style="font-size: 1.2rem; display: block; margin-top: -5px;">جنيه</span>
+            </div>
+          </div>
+          <div class="invoice-shipping-info" style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-color); font-size: 0.95rem; line-height: 1.7; color: var(--text-muted);">
+            <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;">
+              <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
+              <span>الدفع نقدًا (كاش) للمندوب فقط عند الفحص والاستلام.</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;">
+              <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
+              <span>يتم تسليم الشحنة لشركة التوصيل خلال 24 ساعة من الطلب ويتم تسليمها للعميل خلال 48 ساعة.</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="color: var(--accent-gold); font-size: 1.1rem; line-height: 1;">🔶</span>
+              <span>شحن وتغطية جغرافية شاملة لجميع محافظات جمهورية مصر العربية.</span>
+            </div>
+          </div>
+        </aside>
+
+      </div> <!-- قفلة الـ checkout-shell المظبوطة -->
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="real-gallery-section">
-  <div class="wrap">
-    <div class="gallery-header">
-      <h2>📸 صور حقيقية للمنتج</h2>
-      <p>صور تم التقاطها مباشرة داخل الاستوديو على الطبيعة لتوضيح التفاصيل، الألوان الحقيقية، وجودة تقفيل الطقم الفرعوني بالملي.</p>
-    </div>
-    
-    <div class="gallery-slider-container">
-      <div class="gallery-slider-wrapper" id="realProductSlider">
-        <img src="100.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 1" class="gallery-slider-img active">
-        <img src="200.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 2" class="gallery-slider-img">
-        <img src="400.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 3" class="gallery-slider-img">
-        <img src="500.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 4" class="gallery-slider-img">
-        <img src="600.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 5" class="gallery-slider-img">
+  <section class="real-gallery-section">
+    <div class="wrap">
+      <div class="gallery-header">
+        <h2>📸 صور حقيقية للمنتج</h2>
+        <p>صور تم التقاطها مباشرة داخل الاستوديو على الطبيعة لتوضيح التفاصيل، الألوان الحقيقية، وجودة تقفيل الطقم الفرعوني بالملي.</p>
       </div>
       
-      <button type="button" class="gallery-arrow-btn prev-arrow" onclick="moveGallerySlider('realProductSlider', -1)">&#10094;</button>
-      <button type="button" class="gallery-arrow-btn next-arrow" onclick="moveGallerySlider('realProductSlider', 1)">&#10095;</button>
+      <div class="gallery-slider-container">
+        <div class="gallery-slider-wrapper" id="realProductSlider">
+          <img src="100.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 1" class="gallery-slider-img active">
+          <img src="200.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 2" class="gallery-slider-img">
+          <img src="400.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 3" class="gallery-slider-img">
+          <img src="500.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 4" class="gallery-slider-img">
+          <img src="600.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 5" class="gallery-slider-img">
+          <img src="122.jpg" alt="تفاصيل التيشرت الفرعوني على الطبيعة 5" class="gallery-slider-img">
+        </div>
+        
+        <button type="button" class="gallery-arrow-btn prev-arrow" onclick="moveGallerySlider('realProductSlider', -1)">&#10094;</button>
+        <button type="button" class="gallery-arrow-btn next-arrow" onclick="moveGallerySlider('realProductSlider', 1)">&#10095;</button>
+      </div>
     </div>
+  </section>
+
+  <div class="toast" id="toast">
+    <span id="toastMsg">جاري تحويلك للواتساب…</span>
   </div>
-</section>
 
-<div class="toast" id="toast">
-  <span id="toastMsg">جاري تحويلك للواتساب…</span>
-</div>
+  <script src="script.js"></script>
 
-<script src="script.js"></script>
-<!-- رابط سياسة الاستبدال والاسترجاع في أسفل الصفحة -->
+  <!-- رابط سياسة الاستبدال والاسترجاع في أسفل الصفحة -->
   <div style="text-align: center; margin: 30px 0 15px 0;">
     <a href="javascript:void(0);" onclick="document.getElementById('policyModal').style.display = 'flex';" style="color: var(--text-muted); text-decoration: underline; font-size: 0.95rem; transition: color 0.2s;">سياسة الاستبدال والاسترجاع</a>
   </div>
