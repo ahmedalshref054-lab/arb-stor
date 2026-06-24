@@ -2,7 +2,7 @@
   "use strict";
 
   // رقم الواتساب الخاص بك
-  var WHATSAPP_NUMBER = "201069086119";
+  var WHATSAPP_NUMBER = "201095222409";
 
   /* --- دوال السلايدر (ربط مباشر مع الـ HTML) --- */
   window.moveSlider = function(sliderId, direction) {
